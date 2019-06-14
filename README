@@ -1,0 +1,8 @@
+leet_code pratice
+
+编译器使用clang++
+
+进入到build目录下：
+1、cmake ..
+2、make
+3、运行可执行文件

@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/global.h
+
+/home/lynxi/work/test/c++/leetcode_c++/src/main.cpp
+iostream
+-
+string
+-
+cstring
+-
+stdio.h
+-
+global.h
+/home/lynxi/work/test/c++/leetcode_c++/src/global.h
+
+/home/lynxi/work/test/c++/leetcode_c++/src/substringTest.cpp
+iostream
+-
+vector
+-
+array
+-
+map
+-
+global.h
+/home/lynxi/work/test/c++/leetcode_c++/src/global.h
+
