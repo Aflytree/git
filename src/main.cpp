@@ -14,6 +14,10 @@ int main(int argc, char *argv[])
     {
         printf("error in substringTest\n");
     }
+    if( 0 != findMedianSortedArraysTest())
+    {
+        printf("error in findMedianSortedArraysTest\n");
+    }
     return 0;
 }
 
