@@ -2,9 +2,9 @@ cmake_minimum_required(VERSION 2.8.9)
 
 set(CMAKE_C_COMPILER "/usr/bin/clang")
 set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
-project (leetcode_c++)
+project (leetcode_c-)
 
-include_directories(/usr/include/python3.5m)
+#include_directories(/usr/include/python3.5m)
 include_directories(include)
 file(GLOB SOURCES "src/*.cpp")
 
@@ -22,6 +22,6 @@ aux_source_directory(. DIR_SRCS)
 #ADD_DEFINITIONS(-g -W -Wall -o2))
 
 #得出可执行文件
-add_executable(leetcode_c++  ${SOURCES})
+add_executable(leetcode_c-  ${SOURCES})
 #link libray in static mode
-target_link_libraries(leetcode_c++)
+target_link_libraries(leetcode_c-)
