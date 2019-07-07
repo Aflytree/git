@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
     short c = 0x56;
     short d = 0x78;
     long long f = 0;
-
+#if 0
     f = (f | ( (long long)d << 48));
     
     printf("d = 0x%lx\n",f);
@@ -31,6 +31,14 @@ int main(int argc, char *argv[])
   
     f = (f | ( (d << 48)| (c << 32) | (b << 16) | a));
     printf("d = %lx\n",d);
+#endif
+
+#if 0
+    if(0 != reverseTest())
+    {
+        printf("error in reverseTest\n");
+    }
+
     if(0 != substringTest())
     {
         printf("error in substringTest\n");
@@ -39,6 +47,13 @@ int main(int argc, char *argv[])
     {
         printf("error in findMedianSortedArraysTest\n");
     }
+#endif
+
+    if(0 != isSameTreeTest())
+    {
+        printf("error in isSameTreeTest\n");
+    }
+
     return 0;
 }
 
