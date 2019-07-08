@@ -17,17 +17,33 @@ public:
             return 1;
         return 0;
     }
+
     void CreateBiTree(TreeNode* &T)
     {
         char ch;
-        
-        if((ch=getchar())=='#')T=NULL;//其中getchar（）为逐个读入标准库函数
-        else
+
+        printf("please input your value:\n");
+        if((ch=getchar())=='#')
+        {
+            T=NULL;//其中getchar（）为逐个读入标准库函数
+        }
+        else if((ch=getchar())!= '\n')
         {
             T = new TreeNode(ch);//产生新的子树
             printf("node val = %d\n",T->val);
+            printf("T->left:\n");
             CreateBiTree(T->left);//递归创建左子树
+            printf("T->right:\n");
             CreateBiTree(T->right);//递归创建右子树
+        }
+    }
+    void preOrder(TreeNode *temp)
+    {
+        if (temp != NULL)
+        {
+            printf("node value: %d\n",temp->val);
+            preOrder(temp->left);
+            preOrder(temp->right);
         }
     }
 };
@@ -41,13 +57,13 @@ int isSameTreeTest()
     TreeNode *newTree2;
     
     A.CreateBiTree(newTree1);
-    A.CreateBiTree(newTree2);
+   // A.CreateBiTree(newTree2);
     //向tree里面添加元素
+    A.preOrder(newTree1);
 
-
-    if(1 == A.isSameTree(p, q))
-        printf("is same tree\n");
-    else
-        printf("is not same tree\n");
+   // if(1 == A.isSameTree(p, q))
+     //   printf("is same tree\n");
+   // else
+     //   printf("is not same tree\n");
     return 0;
 }
