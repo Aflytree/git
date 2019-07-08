@@ -48,12 +48,13 @@ int main(int argc, char *argv[])
         printf("error in findMedianSortedArraysTest\n");
     }
 #endif
-
-    if(0 != isSameTreeTest())
-    {
-        printf("error in isSameTreeTest\n");
-    }
-
+//
+//    if(0 != isSameTreeTest())
+//    {
+//        printf("error in isSameTreeTest\n");
+//    }
+//
+    binarySearchTest();
     return 0;
 }
 

@@ -30,3 +30,4 @@ int findMedianSortedArraysTest();
 int myStrToIntTest();
 int reverseTest();
 int isSameTreeTest();
+void binarySearchTest();
