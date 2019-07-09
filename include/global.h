@@ -19,6 +19,12 @@ struct TreeNode {
     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
+struct ListNode {
+    int val;
+    ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
+};
+
 /**
 *@param a     :
 *@param b     :
@@ -31,3 +37,4 @@ int myStrToIntTest();
 int reverseTest();
 int isSameTreeTest();
 void binarySearchTest();
+void removeNthFromEndTest();
