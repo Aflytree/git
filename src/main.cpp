@@ -55,6 +55,7 @@ int main(int argc, char *argv[])
 //    }
 //
     binarySearchTest();
+    removeNthFromEndTest();
     return 0;
 }
 
