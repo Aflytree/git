@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
 //        printf("error in isSameTreeTest\n");
 //    }
 //
-    binarySearchTest();
+//    binarySearchTest();
     removeNthFromEndTest();
     return 0;
 }
