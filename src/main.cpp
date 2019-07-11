@@ -55,7 +55,8 @@ int main(int argc, char *argv[])
 //    }
 //
 //    binarySearchTest();
-    removeNthFromEndTest();
+    //removeNthFromEndTest();
+    mergeTwoListsTest();
     return 0;
 }
 
