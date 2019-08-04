@@ -38,3 +38,4 @@ int reverseTest();
 int isSameTreeTest();
 void binarySearchTest();
 void removeNthFromEndTest();
+void mergeTwoListsTest();

@@ -83,6 +83,7 @@ int main(int argc, char *argv[])
     binarySearchTest();
     removeNthFromEndTest();
     testComplex();
+    mergeTwoListsTest();
     return 0;
 }
 

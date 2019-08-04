@@ -1,6 +1,9 @@
+#include <iostream>
 #include <stdio.h>
 #include "global.h"
+//ABDH##I##E##CF#J##G##
 
+using namespace std;
 #define TEST(x, y) printf("%12d --->> %-12d  %s\r\n", x, A.reverse(x), y==A.reverse(x)? "Successed":"Failed")
 
 
@@ -21,13 +24,14 @@ public:
     void CreateBiTree(TreeNode* &T)
     {
         char ch;
-
+        char cb;
+        
         printf("please input your value:\n");
         if((ch=getchar())=='#')
         {
             T=NULL;//其中getchar（）为逐个读入标准库函数
         }
-        else if((ch=getchar())!= '\n')
+        else
         {
             T = new TreeNode(ch);//产生新的子树
             printf("node val = %d\n",T->val);
@@ -57,13 +61,16 @@ int isSameTreeTest()
     TreeNode *newTree2;
     
     A.CreateBiTree(newTree1);
-   // A.CreateBiTree(newTree2);
+    A.CreateBiTree(newTree2);
     //向tree里面添加元素
+    printf("tree1\n");
     A.preOrder(newTree1);
+    printf("tree2\n");
+    A.preOrder(newTree2);
 
-   // if(1 == A.isSameTree(p, q))
-     //   printf("is same tree\n");
-   // else
-     //   printf("is not same tree\n");
+    if(1 == A.isSameTree(p, q))
+        printf("is same tree\n");
+    else
+        printf("is not same tree\n");
     return 0;
 }
