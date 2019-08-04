@@ -3,10 +3,29 @@
 #include <cstring>
 #include <stdio.h>
 #include "global.h"
+#include "complex.h"
 using namespace std;
 
 FILE*filestream;
 FILE*stream;
+
+int sub(int sub_a,int sub_b){
+    int  tmp =100;
+    int ret =0;
+    ret = tmp - sub_a -sub_b;
+    return ret;
+
+}
+
+int add(int p,int q)
+{
+    int kz = 19;
+    int ret =0;
+    ret = sub(kz,p);
+    return kz+p+q;
+
+
+}
 
 int main(int argc, char *argv[])
 {
@@ -54,8 +73,16 @@ int main(int argc, char *argv[])
 //        printf("error in isSameTreeTest\n");
 //    }
 //
+    int k = 11;
+    int m =10;
+    int n =0;
+    
+    n=k+m;
+    printf(" n =%d\n",n);    
+    add(k,m);
     binarySearchTest();
     removeNthFromEndTest();
+    testComplex();
     return 0;
 }
 
