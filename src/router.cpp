@@ -193,6 +193,7 @@ void CRouter::RcReceiveData(CCluster *pcluster, TypeData *pRIinD0, uint32 *pRIWM
         *Rt_c_dest = pcluster->packQ.front().c_dest_OUT;
         *pRIWM0 = pcluster->packQ.front().WM_OUT;
         *pRtWen0 = 1;
+        send_start_in_receive_flag = 1;
         RC.WM = *pRIWM0;
 
         pcluster->packQ.pop();
@@ -255,12 +256,13 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
     uint32 Rt_c_dest = 0; //
     uint32 CLC_Ren;       //Data Ctrl输出给Addr Dec 传递给Ren_Mem,然后传递给ram，mem的读使能信号
     uint32 local_cr;      //核阵列对应的本地CR编号
-    uint64 Addr_CLC_Ren, Addr_CLC_RLUT, Addr_bus_RLUT;
+    uint64 CLC_Read_Mem_Addr, Addr_CLC_RLUT, Addr_bus_RLUT;
     uint64 Xo_D, CLC_Wen_rt = 0, RC_busy, Addr_RLUT = 0x5d000, Wen, Ren, Dout_FIFO;
     OUT uint64 Ren_Mem = 0, Wen_Mem, Ren_CLC = 0, Wen_CLC;
 
     uint8 RLUT_Send_Finish = 0;
     int RI_out_H0_WM_tmp;
+    int CN_data_num_cnt = 0;
     //uint64 RI_out_H0_WM ;
     struct
     {
@@ -270,11 +272,24 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
         uint64 SNN : 1;
     } RI_out_H0; //从Data Ctrl模块的输出
 
+//#ifdef no_noc //接收queue中传来的数据
+//    RcReceiveData(pcluster, &RI_in_D0, &RI_WM0, &Rt_Wen0, &pRtincoreA, &pRtinmemA, &clk, &Rt_c_dest);
+//#endif
+
     //监测Ph_en_RC使能信号，Ph_en_RC是脉冲信号
+#if debug_en
+        if (dump_inner_en)
+        {
+            fprintf(pcluster->printf_fd, "1------------------------rc operation-------------------------------\r\n");
+            fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d RC start\r\n", phase_en_count, clk);
+            fprintf(pcluster->printf_fd, "Data_Ctrl_Reg M_RLUT:0x%x CN_LOOP:0x%x  CN_data:0x%x CN_loop1:0x%x CN_loop_step:0x%x send_start_in_receive_flag %d send_start_in_receive %d\r\n ",
+                    Data_Ctrl_Reg.M_RLUT, Data_Ctrl_Reg.CN_loop, Data_Ctrl_Reg.CN_data, Data_Ctrl_Reg.CN_loop1, Data_Ctrl_Reg.CN_loop_step,send_start_in_receive_flag,send_start_in_receive);
+        }
+#endif
 
     if ((0 == last_Ph_en_RC) && (1 == RC.Ph_en_RC))
     {
-        if (!Ph_en_RC_Flag)
+        if (!Ph_en_Send_Flag)
         {
             stop_rd_head_addr_flag = 0;
             stop_rd_head_addr_flag_dly = 0;
@@ -282,17 +297,17 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
             stop_rd_head_addr_flag_dly2 = 0;
             stop_rd_head_addr_flag_dly3 = 0;
             stop_rd_head_addr_flag_close = 1;
-            RI_out_H0_WM = 0;
-            RI_out_H0_WM_tmp = 0;
+            RI_out_H0_WM = 8;
+            RI_out_H0_WM_tmp = 8;
         }
-        Ph_en_RC_Flag = 1;
+        Ph_en_Send_Flag = 1;
 #if debug_en
         if (dump_inner_en)
         {
             fprintf(pcluster->printf_fd, "------------------------rc operation-------------------------------\r\n");
             fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d RC start\r\n", phase_en_count, clk);
-            fprintf(pcluster->printf_fd, "Data_Ctrl_Reg M_RLUT:0x%x CN_LOOP:0x%x  CN_data:0x%x CN_loop1:0x%x CN_loop_step:0x%x \r\n ",
-                    Data_Ctrl_Reg.M_RLUT, Data_Ctrl_Reg.CN_loop, Data_Ctrl_Reg.CN_data, Data_Ctrl_Reg.CN_loop1, Data_Ctrl_Reg.CN_loop_step);
+            fprintf(pcluster->printf_fd, "Data_Ctrl_Reg M_RLUT:0x%x CN_LOOP:0x%x  CN_data:0x%x CN_loop1:0x%x CN_loop_step:0x%x send_start_in_receive_flag %d send_start_in_receive %d\r\n ",
+                    Data_Ctrl_Reg.M_RLUT, Data_Ctrl_Reg.CN_loop, Data_Ctrl_Reg.CN_data, Data_Ctrl_Reg.CN_loop1, Data_Ctrl_Reg.CN_loop_step,send_start_in_receive_flag,send_start_in_receive);
         }
 #endif
     }
@@ -300,7 +315,7 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
     {
         stop_rd_head_addr_flag_close = 0;
     }
-    last_Ph_en_RC = RC.Ph_en_RC;
+   // last_Ph_en_RC = RC.Ph_en_RC;
     
     if (pcluster->ram.RC.bFailed)
     {
@@ -355,7 +370,16 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
 #ifdef ARTERISNOC
     RcReceiveDatafromNoC(pboard, pchip, pcluster, &RI_in_D0, &RI_WM0, &Rt_Wen0, &pRtincoreA, &pRtinmemA, &clk, &Rt_c_dest, C_Ready0, phase_en_count);
 #endif
-    //
+
+    if ((0 == last_Ph_en_RC) && (1 == RC.Ph_en_RC))
+    {
+        if(send_start_in_receive_flag)
+        {
+            send_start_in_receive = 1;
+        }
+    }
+
+    last_Ph_en_RC = RC.Ph_en_RC;
 
     if (Data_Ctrl_Reg.RX_start)
     {
@@ -377,6 +401,7 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
             Data_Ctrl_Reg.RX_busy = 1;
             if (Rt_Wen0)
             {
+                 send_start_in_receive_flag = 0;
                 rx_valid = 1;
                 if (RI_WM0 == 0)
                 {
@@ -393,23 +418,22 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
             }
         }
     }
-    //
-    CLC_Ren = Ph_en_RC_Flag && !Rt_Wen0;
+    
+    CLC_Ren = Ph_en_Send_Flag && !Rt_Wen0;
 
     Addr_CLC_RLUT = Data_Ctrl_Reg.Addr_base_RLUT; //RC读取Memory4的RLUT地址
-    //if(!Data_Send_Finish)
-    //{
+    
     if (Data_Ctrl_Reg.N_BC == 1)
     {
         Addr_RLUT = Addr_CLC_RLUT;
     }
-    Addr_CLC_Ren = Data_Ctrl_Reg.Addr_base_Rd; //RC读取Memory普通数据地址
+    CLC_Read_Mem_Addr = Data_Ctrl_Reg.Addr_base_Rd; //RC读取Memory普通数据地址
 
-    if (Ph_en_RC_Flag && (RC.Ren_Mem || RC.Ren_CLC) && Rt_Wen0) //如果上一拍RC在读Memory，而这一拍RC要写数据，则RC发送过程被打断|| stop_rd_head_addr_flag_close
+    if (Ph_en_Send_Flag && (RC.Ren_Mem || RC.Ren_CLC) && Rt_Wen0) //如果上一拍RC在读Memory，而这一拍RC要写数据，则RC发送过程被打断|| stop_rd_head_addr_flag_close
     {
         b_interupt = 1;
     }
-    if ((Ph_en_RC_Flag == 1) && (!Rt_Wen0) && (i3 == 0) && (j3 == 0) && (k3 == 0))
+    if ((Ph_en_Send_Flag == 1) && (!Rt_Wen0) && (i3 == 0) && (j3 == 0) && (k3 == 0))
     {
         stop_rd_head_addr_flag_pre = 0;
     }
@@ -428,12 +452,12 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
 #if debug_en
     if (dump_inner_en)
     {
-        fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d STARTAddr_CLC_RLUT %x, Addr_CLC_Ren %x Data_Ctrl_Reg.N_received %d N_received_done %d rx_start_flag %d RX_busy %d b_interupt %d Rt_Wen0 %d\r\n",
-                phase_en_count, clk, Addr_CLC_RLUT, Addr_CLC_Ren, Data_Ctrl_Reg.N_received, Data_Ctrl_Reg.N_received_done, rx_start_flag, Data_Ctrl_Reg.RX_busy, b_interupt, Rt_Wen0);
+        fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d STARTAddr_CLC_RLUT %x, CLC_Read_Mem_Addr %x Data_Ctrl_Reg.N_received %d N_received_done %d rx_start_flag %d RX_busy %d b_interupt %d Rt_Wen0 %d\r\n",
+                phase_en_count, clk, Addr_CLC_RLUT, CLC_Read_Mem_Addr, Data_Ctrl_Reg.N_received, Data_Ctrl_Reg.N_received_done, rx_start_flag, Data_Ctrl_Reg.RX_busy, b_interupt, Rt_Wen0);
     }
 #endif
     //Data Ctrl
-    if (0 == Ph_en_RC_Flag)
+    if (0 == Ph_en_Send_Flag)
     {
         i1 = 0;
         j1 = 0;
@@ -466,9 +490,7 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
 #endif
 
         if (i1 >= (Data_Ctrl_Reg.BD_S + N_data_valid - 1) / N_data_valid)
-
         {
-
             j1++;
             i1 = 0;
         }
@@ -486,23 +508,33 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
             {
                 if (i1 < (Data_Ctrl_Reg.BD_S + N_data_valid - 1) / N_data_valid)
                 {
-                    if (((Data_Ctrl_Reg.X0 + j1 * Data_Ctrl_Reg.K_dilation) < 0) || ((Data_Ctrl_Reg.Y0 + k1 * Data_Ctrl_Reg.K_dilation) < 0) || ((Data_Ctrl_Reg.X0 + j1 * Data_Ctrl_Reg.K_dilation) > Data_Ctrl_Reg.BW) || ((Data_Ctrl_Reg.Y0 + k1 * Data_Ctrl_Reg.K_dilation) > Data_Ctrl_Reg.BH))
+#if debug_en
+                    if (dump_inner_en)
                     {
-                        //Addr_CLC_Ren = Data_Ctrl_Reg.Addr_all_0;
-                        RC.Xo_l = 0;
-                        RC.Xo_h = 0;
-                        i1++;
+
+                        fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d x0y0RC RAM Addr is from clc data:%d data:%d Addr_base_Rd:%d i1:%d j1:%d k1:%d BW %d BD %d pk_data_valid_pre %d n1 %d\r\n",
+                                phase_en_count, clk, (Data_Ctrl_Reg.X0 + j1 * Data_Ctrl_Reg.K_dilation),(Data_Ctrl_Reg.Y0 + k1 * Data_Ctrl_Reg.K_dilation), Data_Ctrl_Reg.Addr_base_Rd, i1, j1, k1, Data_Ctrl_Reg.BW, Data_Ctrl_Reg.BD, pk_data_valid, n1);
+                    }
+#endif
+                    if ((Data_Ctrl_Reg.BD_S - (i1 + 1) * N_data_valid) >= 0)
+                    {
+                        pk_data_valid = N_data_valid;
                     }
                     else
                     {
-                        if ((Data_Ctrl_Reg.BD_S - (i1 + 1) * N_data_valid) >= 0)
-                        {
-                            pk_data_valid = N_data_valid;
-                        }
-                        else
-                        {
-                            pk_data_valid = Data_Ctrl_Reg.BD_S % N_data_valid;
-                        }
+                        pk_data_valid = Data_Ctrl_Reg.BD_S % N_data_valid;
+                    }
+
+                    if (((Data_Ctrl_Reg.X0 + j1 * Data_Ctrl_Reg.K_dilation) < 0) || ((Data_Ctrl_Reg.Y0 + k1 * Data_Ctrl_Reg.K_dilation) < 0) || ((Data_Ctrl_Reg.X0 + j1 * Data_Ctrl_Reg.K_dilation) > Data_Ctrl_Reg.BW) || ((Data_Ctrl_Reg.Y0 + k1 * Data_Ctrl_Reg.K_dilation) > Data_Ctrl_Reg.BH))
+                    {
+
+                        Xo_l_tmp = ((uint64)Data_Ctrl_Reg.vpadding<<48) | ((uint64)Data_Ctrl_Reg.vpadding<<32) | ((uint64)Data_Ctrl_Reg.vpadding<<16) | (uint64)(Data_Ctrl_Reg.vpadding);//vpadding;//0;
+                        Xo_h_tmp = ((uint64)Data_Ctrl_Reg.vpadding<<48) | ((uint64)Data_Ctrl_Reg.vpadding<<32) | ((uint64)Data_Ctrl_Reg.vpadding<<16) | ((uint64)Data_Ctrl_Reg.vpadding);
+                        i1++;
+                        padding_flag = 1;
+                    }
+                    else
+                    {
 #if debug_en
                         if (dump_inner_en)
                         {
@@ -511,15 +543,15 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
                                     phase_en_count, clk, RI_in_A0, Data_Ctrl_Reg.Addr_base_Rd, i1, j1, k1, Data_Ctrl_Reg.BW, Data_Ctrl_Reg.BD, pk_data_valid, n1);
                         }
 #endif
-                        Addr_CLC_Ren = Data_Ctrl_Reg.Addr_base_Rd + 2 * N_data_valid * i1 + j1 * Data_Ctrl_Reg.K_dilation * (Data_Ctrl_Reg.BD * 2) + k1 * Data_Ctrl_Reg.BW * Data_Ctrl_Reg.K_dilation * (Data_Ctrl_Reg.BD * 2) + 2 * (Data_Ctrl_Reg.X0 + Data_Ctrl_Reg.Y0 * Data_Ctrl_Reg.BW) * Data_Ctrl_Reg.BD;
+                        CLC_Read_Mem_Addr = Data_Ctrl_Reg.Addr_base_Rd + 2 * N_data_valid * i1 + j1 * Data_Ctrl_Reg.K_dilation * (Data_Ctrl_Reg.BD * 2) + k1 * Data_Ctrl_Reg.BW * Data_Ctrl_Reg.K_dilation * (Data_Ctrl_Reg.BD * 2) + 2 * (Data_Ctrl_Reg.X0 + Data_Ctrl_Reg.Y0 * Data_Ctrl_Reg.BW) * Data_Ctrl_Reg.BD;
                         i1++;
+                        padding_flag = 0;
                     }
                 }
             }
         }
         else
         {
-
             if ((n2 == Data_Ctrl_Reg.N_BC))
             {
                 Data_Send_Finish = 1;
@@ -539,7 +571,6 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
             //     phase_en_count,clk, RI_in_A0, Data_Ctrl_Reg.Addr_base_Rd, i1, j1, k1,Data_Ctrl_Reg.BW,Data_Ctrl_Reg.BD,pk_data_valid,n1);
         }
 #endif
-        //[zaf]
         if (1 == Data_Ctrl_Reg.N_BC)
         {
             if (n1 == ((Data_Ctrl_Reg.BD_S + N_data_valid - 1) / N_data_valid) * Data_Ctrl_Reg.KH * Data_Ctrl_Reg.KW - 1)
@@ -563,7 +594,12 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
                 i1 = 0;
                 j1 = 0;
                 k1 = 0;
-                
+                n_bc_cnt++;
+                if(n_bc_cnt==Data_Ctrl_Reg.N_BC)
+                {
+                    Data_Send_Finish = 1;
+                    n_bc_cnt=0;
+                }
             }
             else
             {
@@ -573,19 +609,19 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
     }
     else if (b_interupt && !Rt_Wen0) //RC读数据被打断，需要重新读数据
     {
-        Addr_CLC_Ren = last_data_address;
+        CLC_Read_Mem_Addr = last_data_address;
         //b_interupt = 0;
 #if debug_en
         if (dump_inner_en)
         {
-            fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d Last Read Mem was interrupted, Read agin, Address:0x%x\n", phase_en_count, clk, Addr_CLC_Ren);
+            fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d Last Read Mem was interrupted, Read agin, Address:0x%x\n", phase_en_count, clk, CLC_Read_Mem_Addr);
         }
 #endif
     }
 
-    if ((0 == Rt_Wen0) && (1 == Ph_en_RC_Flag)) //Risc-v启动的RC发送
+    if ((0 == Rt_Wen0) && (1 == Ph_en_Send_Flag)) //Risc-v启动的RC发送
     {
-        RI_in_A0 = Addr_CLC_Ren;
+        RI_in_A0 = CLC_Read_Mem_Addr;
         last_data_address = RI_in_A0;
 #if debug_en
         if (dump_inner_en)
@@ -645,6 +681,11 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
     //Ctrl_CIF
     RI_RdWt = !(Rt_Wen0 || CLC_Ren);
     //Xo = RC.Xo;
+     if(padding_flag_dly)
+     {
+         RC.Xo_l = Xo_l_tmp_dly;
+         RC.Xo_h = Xo_h_tmp_dly;
+     }
     Xo[0] = RC.Xo_l;
     Xo[1] = RC.Xo_h;
 
@@ -678,8 +719,13 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
         fifo_data[5] = RI_out_D0.data6;
         fifo_data[6] = RI_out_D0.data7;
         fifo_data[7] = RI_out_D0.data8;
+        
         int pk_data_valid_tmp = (pk_data_valid_dly == 0) ? 8 : pk_data_valid_dly;
-       // fprintf(pcluster->printf_fd, "[zaf]phase_en_count:%d,clk:%d,pk_data_valid_tmp ======================%d\n", phase_en_count, clk, pk_data_valid_tmp);
+#if debug_en
+        if(dump_inner_en){
+            fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d 进入fifo多少数：pk_data_valid_tmp %d\r\n", phase_en_count, clk, pk_data_valid_tmp);
+        }
+#endif
         for (int i = 0; i < pk_data_valid_tmp; i++)
         {
             Router_data_fifo.data = fifo_data[i];
@@ -689,7 +735,7 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
         if (dump_inner_en)
         {
             int size = Router_data_fifoQ.size();
-            fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d RC last fifo_data size %d pk_data_valid_tmp %d Data:0x%04x%04x%04x%04x%04x%04x%04x%04x\r\n", phase_en_count, clk, size, pk_data_valid_tmp,
+            fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d 接收数据后内部fifo状态和数据： fifo_data size %d pk_data_valid_tmp %d Data:0x%04x%04x%04x%04x%04x%04x%04x%04x\r\n", phase_en_count, clk, size, pk_data_valid_tmp,
                     fifo_data[0], fifo_data[1], fifo_data[2], fifo_data[3], fifo_data[4], fifo_data[5], fifo_data[6], fifo_data[7]);
         }
 #endif
@@ -711,15 +757,15 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
 #if debug_en
     if (dump_inner_en)
     {
-        fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d Addr_RLUTRLUT RLUT_Send_Finish n2 %d Addr_RLUT %x Addr_CLC_RLUT %x\r\n", phase_en_count, clk, n2, Addr_RLUT, Addr_CLC_RLUT);
+        fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d  n2 %d Addr_RLUT %x Addr_CLC_RLUT %x\r\n", phase_en_count, clk, n2, Addr_RLUT, Addr_CLC_RLUT);
     }
 #endif
 
 #if debug_en
     if (dump_inner_en)
     {
-        fprintf(pcluster->printf_fd, "Ph_en_RC_Flag:%d Rt_Wen0:%d RC.Ren_Mem:%d RC.Ren_CLC:%d Data_Ctrl_Reg.N_BC %d stop_rd_head_addr_flag %d stop_rd_head_addr_flag_dly %d stop_rd_head_addr_flag_inter %d\r\n",
-                Ph_en_RC_Flag_delay, Rt_Wen0, RC.Ren_Mem, RC.Ren_CLC, Data_Ctrl_Reg.N_BC, stop_rd_head_addr_flag, stop_rd_head_addr_flag_dly2, stop_rd_head_addr_flag_inter);
+        fprintf(pcluster->printf_fd, "Ph_en_Send_Flag:%d Rt_Wen0:%d RC.Ren_Mem:%d RC.Ren_CLC:%d Data_Ctrl_Reg.N_BC %d stop_rd_head_addr_flag %d stop_rd_head_addr_flag_dly %d stop_rd_head_addr_flag_inter %d\r\n",
+                Ph_en_Send_Flag_delay, Rt_Wen0, RC.Ren_Mem, RC.Ren_CLC, Data_Ctrl_Reg.N_BC, stop_rd_head_addr_flag, stop_rd_head_addr_flag_dly2, stop_rd_head_addr_flag_inter);
     }
 #endif
     Xo_D = RC.RLUT_Data;
@@ -736,62 +782,60 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
 #if debug_en
     if (dump_inner_en)
     {
-        fprintf(pcluster->printf_fd, "cccphase_en_count: %d,clk:%d , CIF_Wen:%d C_Ready:%d core_addr_OUT:0x%x  mem_addr_OUT:0x%x  c_dest_OUT:0x%x WM_OUT:%d ",
-                phase_en_count, clk, RC.CIF_Wen, RC.C_Ready, RC.RI.core_addr_OUT, RC.RI.mem_addr_OUT, RC.RI.c_dest_OUT, RC.RI.WM_OUT);
+        fprintf(pcluster->printf_fd, "cccphase_en_count: %d,clk:%d , CIF_Wen:%d C_Ready:%d core_addr_OUT:0x%x  mem_addr_OUT:0x%x  c_dest_OUT:0x%x WM_OUT:%d stop_rd_head_addr_flag %d\r\n",
+                phase_en_count, clk, RC.CIF_Wen, RC.C_Ready, RC.RI.core_addr_OUT, RC.RI.mem_addr_OUT, RC.RI.c_dest_OUT, RC.RI.WM_OUT,stop_rd_head_addr_flag);
     }
 #endif
 
     RI_out_H0.C_dest = (Xo_D >> 1) & 0x7;
     RI_out_H0.Mem_Addr = ((Xo_D >> 4) & 0x7FFFF) + Data_Ctrl_Reg.Addr_var_D; //18bit  17~0
+    
+    //RI_out_H0_WM_tmp = (RI_out_H0_WM == 0) ? 8 : RI_out_H0_WM;
+   
+    //if((!((Data_Ctrl_Reg.CN_loop == 1) && (Data_Ctrl_Reg.CN_loop1 == 1)))&&(Data_Ctrl_Reg.N_BC > 1))
+    //{
+    //    RI_out_H0_WM_tmp = (RI_out_H0_WM == 0) ? 8 : RI_out_H0_WM;
+    // }
 
-    if (0 == Ph_en_RC_Flag_delay)
+    //RI_out_H0_WM_tmp = RI_out_H0_WM_dly;
+#if debug_en
+    if(dump_inner_en)
+    {
+        fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d 输出数据位宽 RI_out_H0_WM %d \r\n", phase_en_count, clk, RI_out_H0_WM);
+        fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d,Data_Ctrl_Reg.Addr_var_D  0x%x \r\n", phase_en_count, clk, Data_Ctrl_Reg.Addr_var_D);
+        fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d,((Xo_D >> 4) & 0x7FFFF)   0x%x \r\n", phase_en_count, clk, ((Xo_D >> 4) & 0x7FFFF) );
+        fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d 初始输出地址（LUT基地址　＋　寄存器偏移) : RI_out_H0.Mem_Addr  0x%x\r\n", phase_en_count, clk, RI_out_H0.Mem_Addr);
+        fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d,Rt_Wen0 %d Ph_en_Send_Flag_delay %d RC.Ren_Mem %d RC.Ren_CLC %d b_interupt %d stop_rd_head_addr_flag %d\r\n", Rt_Wen0, Ph_en_Send_Flag_delay, RC.Ren_Mem ,RC.Ren_CLC , phase_en_count, clk,b_interupt, stop_rd_head_addr_flag);
+    }
+#endif
+
+
+    CN_data_num_cnt = ((Data_Ctrl_Reg.CN_data + N_data_valid - 1) / N_data_valid);
+
+    if (0 == Ph_en_Send_Flag_delay)
     {
         i3 = 0;
         j3 = 0;
     }
     /*以下代码通过RLUT模式的配置，根据不同的模式修改包头里的地址*/
-    else if ((!Rt_Wen0) && (1 == Ph_en_RC_Flag_delay) && (RC.Ren_Mem || RC.Ren_CLC) && (((!b_interupt) && (!stop_rd_head_addr_flag)))) //Here is calculate the header address
+    else if ((!Rt_Wen0) && (1 == Ph_en_Send_Flag_delay) && (RC.Ren_Mem || RC.Ren_CLC) && (((!b_interupt) && (!stop_rd_head_addr_flag)))) //Here is calculate the header address
     {
-        /*
-        Xo_D = RC.RLUT_Data;
-#if debug_en
-        if(dump_inner_en)
-        {
-            fprintf(pcluster->printf_fd, "Read From Mem4 Data:0x%016llx, M_RLUT:%d CN_data:%d CN_loop:%d CN_loop_step:%d CN_loop1:%d CN_loop_step1:%d i3:%d\r\n", 
-                   Xo_D, Data_Ctrl_Reg.M_RLUT, Data_Ctrl_Reg.CN_data, Data_Ctrl_Reg.CN_loop, Data_Ctrl_Reg.CN_loop_step, Data_Ctrl_Reg.CN_loop1, Data_Ctrl_Reg.CN_loop_step ,i3);
-        }
-#endif
-
-        RI_out_H0.Core_Addr = (Xo_D >> 23) & 0x7FF; 
-        core_addr_reg = RI_out_H0.Core_Addr;
-#if debug_en
-                if(dump_inner_en)
-                {
-                   fprintf(pcluster->printf_fd, "cccphase_en_count: %d,clk:%d , CIF_Wen:%d C_Ready:%d core_addr_OUT:0x%x  mem_addr_OUT:0x%x  c_dest_OUT:0x%x WM_OUT:%d ", 
-                   phase_en_count,clk, RC.CIF_Wen, RC.C_Ready, RC.RI.core_addr_OUT, RC.RI.mem_addr_OUT, RC.RI.c_dest_OUT, RC.RI.WM_OUT);              
-                }
-#endif
-      
-        RI_out_H0.C_dest    = (Xo_D >> 1) & 0x7;
-        RI_out_H0.Mem_Addr  = ((Xo_D >> 4) & 0x7FFFF) + Data_Ctrl_Reg.Addr_var_D;        //18bit  17~0
-        */
-        if ((i3 == 0) && (j3 == 0) && (k3 == 0)) //&&(Data_Ctrl_Reg.N_BC ==1))
+        if ((i3 == 0) && (j3 == 0) && (k3 == 0)) 
         {
             mem_addr_des_dly = RI_out_H0.Mem_Addr;
             mem_addr_des = RI_out_H0.Mem_Addr;
         }
-        int CN_data_num_cnt = 0;
-        CN_data_num_cnt = ((Data_Ctrl_Reg.CN_data + N_data_valid - 1) / N_data_valid);
-        /*
-        if(Data_Ctrl_Reg.CN_data <Data_Ctrl_Reg.BD_S)
+        
+#if debug_en
+        if(dump_inner_en)
         {
-            CN_data_num_cnt = ((Data_Ctrl_Reg.CN_data + N_data_valid -1)/N_data_valid);
+            fprintf(pcluster->printf_fd, "phase_en_count: %d,clk: %d 根据LUT表计算出的目的地址： %d \r\n", phase_en_count, clk, mem_addr_des);
+            fprintf(pcluster->printf_fd, "phase_en_count: %d,clk: %d rc mode 匹配之前：i3 %d j3 %d  %d \r\n", phase_en_count, clk, i3, j3);
         }
-        else
-        {
-            CN_data_num_cnt = (Data_Ctrl_Reg.CN_data / Data_Ctrl_Reg.BD_S)*((Data_Ctrl_Reg.BD_S+ N_data_valid -1)/N_data_valid);
-        }
-        */
+#endif
+
+       
+        
         if (0 == Data_Ctrl_Reg.M_RLUT) //Model 0直接输出地址，地址不改变
         {
             if (n3 == Data_Ctrl_Reg.N_BC - 1)
@@ -807,63 +851,16 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
         }
         else if (1 == Data_Ctrl_Reg.M_RLUT) //Model 1地址自动按CN_step增加
         {
-
 #if debug_en
             if (dump_inner_en)
             {
-                fprintf(pcluster->printf_fd, "Addr_RLUT:0x%x, Addr_CLC_RLUT:%x \r\n", Addr_RLUT, Addr_CLC_RLUT);
+                fprintf(pcluster->printf_fd, "Addr_RLUT:0x%x, Addr_CLC_RLUT:%x CN_data_num_cnt %x  \r\n", Addr_RLUT, Addr_CLC_RLUT, CN_data_num_cnt);
             }
 #endif
-            if (i3 >= CN_data_num_cnt)
-            {
-                i3 = 0;
-                j3++;
-
-                if(Data_Ctrl_Reg.N_BC > 1)
-                {
-                    if(Data_Ctrl_Reg.CN_loop == 1)
-                    {
-                        j3 = 0;
-                    }
-                    else
-                    {
-                        if(j3 > Data_Ctrl_Reg.CN_loop)
-                        {
-                            j3 = 0;
-                        }
-                    }
-                }
-#if debug_en
-                if(dump_inner_en)
-                {
-                    fprintf(pcluster->printf_fd, "n2=============================:%x \r\n", n2);
-                }
-#endif
-                if(CN_data_num_cnt == 1)
-                {
-                    if ((n2 > Data_Ctrl_Reg.N_BC))
-                    {
-                        RLUT_Send_Finish = 1;
-                        RLUT_Send_Finish_one_flag = 1;
-                        n2 = 0;
-                    }
-                }
-                else
-                {
-                    if ((n2 >= Data_Ctrl_Reg.N_BC))
-                    {
-                        RLUT_Send_Finish = 1;
-                        RLUT_Send_Finish_one_flag = 1;
-                        n2 = 0;
-                    }
-
-                }
-            }
-         
-            int total_num_tmp = j3 * Data_Ctrl_Reg.CN_data;// + (i3-1) * CN_data_num_cnt;
+            int total_num_tmp = j3 * Data_Ctrl_Reg.CN_data;
             int total_num = Data_Ctrl_Reg.KH * Data_Ctrl_Reg.KW*Data_Ctrl_Reg.BD_S;
 
-             // fprintf(pcluster->printf_fd, "[zaf]11 CN_data phase_en_count: %d,clk:%d  i3 %d j3 %d n1 %d CN_data_num_cnt %d\r\n", phase_en_count, clk, i3, j3, n1, CN_data_num_cnt);
+             // fprintf(pcluster->printf_fd, "CN_data phase_en_count: %d,clk:%d  i3 %d j3 %d n1 %d CN_data_num_cnt %d\r\n", phase_en_count, clk, i3, j3, n1, CN_data_num_cnt);
             if (j3 < Data_Ctrl_Reg.CN_loop && (total_num_tmp < total_num))
             {
                 if (i3 < CN_data_num_cnt) //(Data_Ctrl_Reg.CN_data + N_data_valid -1)/N_data_valid)(Data_Ctrl_Reg.BD_S == Data_Ctrl_Reg.BD)&&
@@ -871,7 +868,6 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
                     RI_out_H0.Mem_Addr = RI_out_H0.Mem_Addr + 2 * i3 * RI_out_H0_WM_dly + j3 * Data_Ctrl_Reg.CN_loop_step;
                     mem_addr_des = RI_out_H0.Mem_Addr;
                   
-                  //  fprintf(pcluster->printf_fd, "[zaf] CN_data phase_en_count: %d,clk:%d  i3 %d j3 %d n1 %d\r\n", phase_en_count, clk, i3, j3, n1);
                     if ((Data_Ctrl_Reg.CN_data - (i3 + 1) * N_data_valid) >= 0)
                     {
                         RI_out_H0_WM = N_data_valid;
@@ -883,11 +879,10 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
 #if debug_en
                     if (dump_inner_en)
                     {
-                        fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d RC RAM Addr is from clc des:%x Addr_base_Rd:%d i3:%d j3:%d k3:%d BW %d BD %d Mem_Addr %x pk_data_valid %d pk_data_valid_dly %d pk_data_valid_dly2 %d mem_addr_des %x RI_out_H0_WM %d\r\n",
+                        fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d [mode1] RC RAM Addr is from clc des:%x Addr_base_Rd:%d i3:%d j3:%d k3:%d BW %d BD %d Mem_Addr %x pk_data_valid %d pk_data_valid_dly %d pk_data_valid_dly2 %d mem_addr_des %x RI_out_H0_WM %d\r\n",
                                 phase_en_count, clk, RI_in_A0, Data_Ctrl_Reg.Addr_base_Rd, i3, j3, k3, Data_Ctrl_Reg.BW, Data_Ctrl_Reg.BD, RI_out_H0.Mem_Addr, pk_data_valid, pk_data_valid_dly, pk_data_valid_dly2, mem_addr_des, RI_out_H0_WM);
                     }
 #endif
-
                     i3++;
                 }
                 RLUT_Send_Finish_one_flag = 0;
@@ -900,10 +895,9 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
                     fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d RLUT_Send_Finish_Finish  n2 %d n1 %d\r\n", phase_en_count, clk, n2, n1);
                 }
 #endif
-                RLUT_Send_Finish_one_flag = 1;
-
                 if (Data_Ctrl_Reg.N_BC == 1)
                 {
+                    RLUT_Send_Finish_one_flag = 1;
                     mem_addr_des = RI_out_H0.Mem_Addr;
                     i3 = 0;
                     RLUT_Send_Finish = 1;
@@ -913,91 +907,120 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
                 {
                     mem_addr_des = RI_out_H0.Mem_Addr;
                     i3 = 1;
-                    if (Data_Ctrl_Reg.N_BC > 1)
-                    {
-                        if ((n2 == Data_Ctrl_Reg.N_BC)) //&&(n1 == 0))//((Data_Ctrl_Reg.BD_S +N_data_valid-1)/N_data_valid)*Data_Ctrl_Reg.KH*Data_Ctrl_Reg.KW))
-                        {
-                             //     fprintf(pcluster->printf_fd, "[zafxxx N_BC]1phase_en_count: %d,clk:%d N_BC 2\r\n", phase_en_count, clk);
-                            RLUT_Send_Finish = 1;
-                            RLUT_Send_Finish_one_flag = 1;
-                            n2 = 0;
-                        }
-                    }
-                    else
-                    {
-                       // fprintf(pcluster->printf_fd, "[zaf N_BC]1phase_en_count: %d,clk:%d N_BC 2\r\n", phase_en_count, clk);
-                        if ((n2 == Data_Ctrl_Reg.N_BC)) //&&(n1 == 0))//((Data_Ctrl_Reg.BD_S +N_data_valid-1)/N_data_valid)*Data_Ctrl_Reg.KH*Data_Ctrl_Reg.KW))
-                        {
-                            RLUT_Send_Finish = 1;
-                        //    fprintf(pcluster->printf_fd, "[zaf N_BC]phase_en_count: %d,clk:%d N_BC 2 n2 %d\r\n", phase_en_count, clk, n2);
-                            n2 = 0;
-                        }
-                    }
                     j3 = 0;
+                }
+            }
+
+            if(Data_Ctrl_Reg.N_BC > 1) //mode1多播模式
+            {
+                if (i3 >= CN_data_num_cnt)
+                {
+#if debug_en
+                    if (dump_inner_en)
+                    {
+                        fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d 信号i3 = CN_data_num_cnt, %d\r\n", phase_en_count, clk,CN_data_num_cnt);
+                    }
+#endif
+                    i3 = 0;
+                    j3++;
+
+                    if(j3 >= Data_Ctrl_Reg.CN_loop)
+                    {
+#if debug_en
+                        if (dump_inner_en)
+                        {
+                            fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d 信号j3 = CN_loop, %d\r\n", phase_en_count, clk, j3);
+                        }
+#endif
+                        j3 = 0;
+                        if(n2 >= Data_Ctrl_Reg.N_BC - 1)
+                        {
+                            if(Router_data_fifoQ.size() == 0)
+                            {
+#if debug_en
+                                if (dump_inner_en)
+                                {
+                                    fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d 信号RLUT_Send_Finish置１\r\n", phase_en_count, clk);
+                                }
+#endif
+                                RLUT_Send_Finish = 1;
+                                Data_Send_Finish = 1;
+                                RLUT_Send_Finish_one_flag = 1;
+                                n2 = 0;
+                                i3 =0;
+                                j3 =0;
+                            }
+                            else
+                            {
+#if debug_en
+                                if (dump_inner_en)
+                                {
+                                    fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d 信号RLUT_Send_Finish fifo size非空\r\n", phase_en_count, clk);
+                                }
+
+#endif
+                                i3 = CN_data_num_cnt;
+                                j3 = Data_Ctrl_Reg.CN_loop - 1;
+                            }
+                        }
+                        else
+                        {
+                            n2++;
+                        }
+                    }
+                }
+            }
+            else //mode1非多播模式
+            {
+                if(i3 >= CN_data_num_cnt)
+                {
+                    i3 = 0;
+                    j3++;
+                    if(j3 >= Data_Ctrl_Reg.CN_loop)
+                    {
+                        if(Router_data_fifoQ.size()>0)
+                        {
+                            i3 = CN_data_num_cnt;
+                            j3 = Data_Ctrl_Reg.CN_loop - 1;
+                            RLUT_Send_Finish_one_flag =1;
+                        }
+                        else
+                        {
+#if debug_en
+                            if (dump_inner_en)
+                            {
+                                fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d[mode1 not multi_bd] 信号RLUT_Send_Finish置１\r\n", phase_en_count, clk);
+                            }
+#endif
+                            i3 = 0;
+                            j3 = 0;
+                            RLUT_Send_Finish = 1;
+                            Data_Send_Finish = 1;
+                            RLUT_Send_Finish_one_flag =1;
+                        }
+                    }
                 }
             }
         }
         else if (2 == Data_Ctrl_Reg.M_RLUT) //Model 2地址自动按CN_step且定期按CN_loop_step增加基地址
         {
-            if (i3 >= CN_data_num_cnt) //(Data_Ctrl_Reg.CN_data + N_data_valid -1)/N_data_valid)
-            {
-                i3 = 0;
-                j3++;
-                if(Data_Ctrl_Reg.N_BC > 1)
-                {
-                    if(Data_Ctrl_Reg.CN_loop == 1)
-                    {
-                        j3 = 0;
-                    }
-                    else
-                    {
-                        if(j3 > Data_Ctrl_Reg.CN_loop)
-                        {
-                            j3 = 0;
-                        }
-                    }
-                }
-#if debug_en
-                if(dump_inner_en)
-                {
-                    fprintf(pcluster->printf_fd, "n2=============================:%x \r\n", n2);
-                }
-#endif
-                if(CN_data_num_cnt == 1)
-                {
-                    if ((n2 > Data_Ctrl_Reg.N_BC))
-                    {
-                        RLUT_Send_Finish = 1;
-                        RLUT_Send_Finish_one_flag = 1;
-                        n2 = 0;
-                    }
-                }
-                else
-                {
-                    if ((n2 >= Data_Ctrl_Reg.N_BC))
-                    {
-                        RLUT_Send_Finish = 1;
-                        RLUT_Send_Finish_one_flag = 1;
-                        n2 = 0;
-                    }
-
-                }
-
-            }
-
-            if (j3 >= Data_Ctrl_Reg.CN_loop)
-            {
-                j3 = 0;
-                k3++;
-            }
             int total_num_tmp = k3 * Data_Ctrl_Reg.CN_data * Data_Ctrl_Reg.CN_loop + j3 * Data_Ctrl_Reg.CN_data;// + (i3-1) * CN_data_num_cnt;
             int total_num = Data_Ctrl_Reg.KH*Data_Ctrl_Reg.KW*Data_Ctrl_Reg.BD_S;
 
-            if ((k3 < Data_Ctrl_Reg.CN_loop1) && (total_num_tmp < total_num))
+#if debug_en
+            if (dump_inner_en)
+            {
+                fprintf(pcluster->printf_fd, "\r\nphase_en_count: %d,clk:%d*********************************\r\n",phase_en_count,clk);
+                fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d mmmmmM_RLUT CN_data_num_cnt %d i3 %d j3 %d k3 %d n2 %d n1 %d\r\n", phase_en_count, clk,\
+                       CN_data_num_cnt, i3, j3, k3, n2, n1);
+                fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d*********************************\r\n",phase_en_count,clk);
+            }
+#endif
+            if ((k3 < Data_Ctrl_Reg.CN_loop1))// && (total_num_tmp < total_num))
             {
                 if (j3 < Data_Ctrl_Reg.CN_loop)
                 {
-                    if (i3 < CN_data_num_cnt) //(Data_Ctrl_Reg.CN_data + N_data_valid -1)/N_data_valid)(Data_Ctrl_Reg.BD_S == Data_Ctrl_Reg.BD)&&
+                    if (i3 < CN_data_num_cnt) 
                     {
                         if ((Data_Ctrl_Reg.CN_data - (i3 + 1) * N_data_valid) >= 0)
                         {
@@ -1007,103 +1030,143 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
                         {
                             RI_out_H0_WM = Data_Ctrl_Reg.CN_data % N_data_valid;
                         }
+                       
+                        RI_out_H0.Mem_Addr = RI_out_H0.Mem_Addr + 2 * i3 * RI_out_H0_WM_dly + j3 * Data_Ctrl_Reg.CN_loop_step + k3 * Data_Ctrl_Reg.CN_loop_step1;
+                        mem_addr_des = RI_out_H0.Mem_Addr;
+                        i3++;
 #if debug_en
                         if (dump_inner_en)
                         {
-                            fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d RC RAM Addr is from clc des000:%x Addr_base_Rd:%d i3:%d j3:%d k3:%d BW %d BD %d Mem_Addr %x pk_data_valid %d mem_addr_des %x n3 %d nRI_out_H0_WM %d\r\n",
-                                    phase_en_count, clk, RI_in_A0, Data_Ctrl_Reg.Addr_base_Rd, i3, j3, k3, Data_Ctrl_Reg.BW, Data_Ctrl_Reg.BD, RI_out_H0.Mem_Addr, pk_data_valid_dly2, mem_addr_des, n3, RI_out_H0_WM);
+                            fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d RC RAM Addr is from clc des000:%x Addr_base_Rd:%d i3:%d j3:%d k3:%d BW %d BD %d \
+                                    Mem_Addr 0x%x pk_data_valid %d mem_addr_des 0x%x n3 %d nRI_out_H0_WM %d\r\n", \
+                                    phase_en_count, clk, RI_in_A0, Data_Ctrl_Reg.Addr_base_Rd, i3, j3, k3, Data_Ctrl_Reg.BW, Data_Ctrl_Reg.BD, RI_out_H0.Mem_Addr, \
+                                    pk_data_valid_dly2, mem_addr_des, n3, RI_out_H0_WM);
                         }
 #endif
-                        // cout<<" phase_en_count "<<phase_en_count<<" coreid "<<pcluster->AddrXY<<"RI_out_H0_WM "<<RI_out_H0_WM<<" CN_data "<< Data_Ctrl_Reg.CN_data<<" i3 "<<i3<<endl;
-                        RI_out_H0.Mem_Addr = RI_out_H0.Mem_Addr + 2 * i3 * RI_out_H0_WM_dly + j3 * Data_Ctrl_Reg.CN_loop_step + k3 * Data_Ctrl_Reg.CN_loop_step1;
-                        mem_addr_des = RI_out_H0.Mem_Addr;
-                        /*
-                        if((Data_Ctrl_Reg.BD_S>=N_data_valid)&&(Data_Ctrl_Reg.BD_S%N_data_valid != 0))
-                        {
-                           
-                            if((i3 == 0)&&(j3 == 0)&&(k3 == 0))//&&(Data_Ctrl_Reg.N_BC ==1))
-                            {
-                                mem_addr_des= RI_out_H0.Mem_Addr;
-#if debug_en
-                                if(dump_inner_en)
-                                {
-                                    fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d RC RAM Addr is from clc des000:%x Addr_base_Rd:%d i3:%d j3:%d k3:%d BW %d BD %d Mem_Addr %x pk_data_valid %d mem_addr_des %x n3 %d\r\n",
-                                        phase_en_count,clk, RI_in_A0, Data_Ctrl_Reg.Addr_base_Rd, i3, j3, k3,Data_Ctrl_Reg.BW,Data_Ctrl_Reg.BD,RI_out_H0.Mem_Addr,pk_data_valid_dly2,mem_addr_des,n3);
-                                }
-#endif 
-                            }
-                            else
-                            {
-                                mem_addr_des = mem_addr_des + 2*pk_data_valid_dly2 + j3*Data_Ctrl_Reg.CN_loop_step + k3*Data_Ctrl_Reg.CN_loop_step1;// pcluster->clc.RC.Addr_offset;                           
-#if debug_en
-                                if(dump_inner_en)
-                                {
-                                    fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d RC RAM Addr is from clc des111:%x Addr_base_Rd:%d i3:%d j3:%d k3:%d BW %d BD %d Mem_Addr %x pk_data_valid %d mem_addr_des %x n3 %d\r\n",
-                                        phase_en_count,clk, RI_in_A0, Data_Ctrl_Reg.Addr_base_Rd, i3, j3, k3,Data_Ctrl_Reg.BW,Data_Ctrl_Reg.BD,RI_out_H0.Mem_Addr,pk_data_valid_dly2,mem_addr_des,n3);
-                                }
-#endif                                
-                            }
-                        }
-                        else
-                        {
-                            RI_out_H0.Mem_Addr = RI_out_H0.Mem_Addr + 2*i3*pk_data_valid + j3*Data_Ctrl_Reg.CN_loop_step + k3*Data_Ctrl_Reg.CN_loop_step1;
-							mem_addr_des = RI_out_H0.Mem_Addr;
-#if debug_en
-                            if(dump_inner_en)
-                            {
-                                fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d RC RAM Addr is from clc des222:%x Addr_base_Rd:%d i3:%d j3:%d k3:%d BW %d BD %d Mem_Addr %x pk_data_valid %d mem_addr_des %x n3 %d\r\n",
-                                    phase_en_count,clk, RI_in_A0, Data_Ctrl_Reg.Addr_base_Rd, i3, j3, k3,Data_Ctrl_Reg.BW,Data_Ctrl_Reg.BD,RI_out_H0.Mem_Addr,pk_data_valid_dly2,mem_addr_des,n3);
-                            }
-#endif 
-                        
-                    }
-                       */
-                        i3++;
                     }
                 }
-                RLUT_Send_Finish_one_flag = 0;
             }
-            else
+            else //k3 else
             {
+                k3 = 0;
 #if debug_en
                 if (dump_inner_en)
                 {
                     fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d RLUT_Send_Finish_Finish  n2 %d n1 %d\r\n", phase_en_count, clk, n2, n1);
                 }
 #endif
-                RLUT_Send_Finish_one_flag = 1;
-
                 if (Data_Ctrl_Reg.N_BC == 1)
                 {
+                    RLUT_Send_Finish_one_flag = 1;
                     mem_addr_des = RI_out_H0.Mem_Addr;
                     i3 = 0;
                     RLUT_Send_Finish = 1;
                     j3 = 0;
                 }
-                else
+            }
+
+            if(Data_Ctrl_Reg.N_BC > 1) //mode2多播
+            {
+                if(i3 >= CN_data_num_cnt) 
                 {
-
-                    mem_addr_des = RI_out_H0.Mem_Addr;
-                    i3 = 1;
-
-                    if ((Data_Ctrl_Reg.N_BC > 1) && ((Data_Ctrl_Reg.BD_S <= N_data_valid)))
+                    i3 = 0;
+                    j3++;
+#if debug_en
+                    if (dump_inner_en)
                     {
-                        if ((n2 == Data_Ctrl_Reg.N_BC + 1)) //&&(n1 == 0))//((Data_Ctrl_Reg.BD_S +N_data_valid-1)/N_data_valid)*Data_Ctrl_Reg.KH*Data_Ctrl_Reg.KW))
-                        {
-                            RLUT_Send_Finish = 1;
-                            n2 = 0;
-                        }
+                        fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d [mode2] 信号i3 = CN_data_num_cnt %d j3 %d, %d\r\n", phase_en_count, clk, i3,j3);
+                        fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d [mode2] 信号 Data_Ctrl_Reg.CN_loop1 %d\r\n", phase_en_count, clk, Data_Ctrl_Reg.CN_loop1);
                     }
-                    else
+#endif
+                    if(j3 >= Data_Ctrl_Reg.CN_loop)
                     {
-                        if ((n2 == Data_Ctrl_Reg.N_BC)) //&&(n1 == 0))//((Data_Ctrl_Reg.BD_S +N_data_valid-1)/N_data_valid)*Data_Ctrl_Reg.KH*Data_Ctrl_Reg.KW))
+                        j3 = 0;
+                        k3++; 
+
+                        if(k3 >= Data_Ctrl_Reg.CN_loop1)
                         {
-                            RLUT_Send_Finish = 1;
-                            n2 = 0;
+                            k3 = 0;
+                            if(n2 >= Data_Ctrl_Reg.N_BC - 1)
+                            {
+                                if(Router_data_fifoQ.size()>0)
+                                {
+#if debug_en
+                                    if (dump_inner_en)
+                                    {
+                                        fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d [mode2] 信号j3 = CN_loop, %d\r\n", phase_en_count, clk, j3);
+                                    }
+#endif                              
+                                    i3 = CN_data_num_cnt;
+                                    j3 = Data_Ctrl_Reg.CN_loop - 1;
+                                    k3 = Data_Ctrl_Reg.CN_loop1 - 1;
+                                    RLUT_Send_Finish_one_flag = 1;
+                                }
+                                else
+                                {
+#if debug_en
+                                    if (dump_inner_en)
+                                    {
+                                        fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d [mode2] 信号RLUT_Send_Finish \r\n", phase_en_count, clk);
+                                    }
+#endif
+                                    RLUT_Send_Finish = 1;
+                                    Data_Send_Finish = 1;
+                                    RLUT_Send_Finish_one_flag = 1;
+                                    n2 = 0;
+                                    k3 = 0;
+                                    i3 = 0;
+                                    j3 = 0;
+                                }
+                            }
+                            else
+                            {
+                                n2++;
+                            }
+                        }
+                    } //j3 > cn_loop
+                }
+            }
+            else //mode2 非多播情况判断
+            {
+#if debug_en
+                if (dump_inner_en)
+                {
+                    fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d i3 %d j3 %d k3 %d CN_data_num_cnt %d CN_loop %d CN_loop1 %d\r\n", phase_en_count, clk, i3,j3,k3,CN_data_num_cnt,Data_Ctrl_Reg.CN_loop,Data_Ctrl_Reg.CN_loop1);
+                }
+    
+#endif
+                if(i3 >= CN_data_num_cnt)
+                {
+                    i3 = 0;
+                    j3++;
+                   
+                    if(j3 >= Data_Ctrl_Reg.CN_loop)
+                    {
+                        j3 = 0;
+                        k3++;
+                     
+                        if(k3 >= Data_Ctrl_Reg.CN_loop1)
+                        {
+                            if(Router_data_fifoQ.size()>0)
+                            {
+                                 RLUT_Send_Finish_one_flag =1;
+                            }
+                            else
+                            {
+                                k3 = 0;
+                                RLUT_Send_Finish =1;
+                                Data_Send_Finish = 1;
+                                RLUT_Send_Finish_one_flag =1;
+                            }
+  #if debug_en
+                            if (dump_inner_en)
+                            {
+                                fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d Data_Send_FinishRLUT_Send_Finish %d \r\n", phase_en_count, clk, RLUT_Send_Finish);
+                            }
+#endif
                         }
                     }
                 }
-                k3 = 0;
             }
         }
     }
@@ -1117,81 +1180,101 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
 #endif
     }
 
-    
-    /* ----------------------------rlut表的更新----------------------------------------------------－*/
-    RC_busy = 0;
-    if ((!Rt_Wen0) && (1 == Ph_en_RC_Flag))
-    {
-//        int group_cnt = 0;
-//        if (Data_Ctrl_Reg.N_BC == 1)
-//        {
-//            group_cnt = ((Data_Ctrl_Reg.BD_S + N_data_valid - 1) / N_data_valid) * Data_Ctrl_Reg.KH * Data_Ctrl_Reg.KW - 1;
-//        }
-//        else
-//        {
-//            //zaf
-//            group_cnt = ((Data_Ctrl_Reg.BD_S + N_data_valid - 1) / N_data_valid) * Data_Ctrl_Reg.KH * Data_Ctrl_Reg.KW - 1;
-//        }
-#if debug_en  
-        fprintf(pcluster->printf_fd, "[zaf]phase_en_count: %d,clk:%d  RLUT_Send_Finish_one_flag %d  n2 %d n1 %d\r\n", phase_en_count, clk,RLUT_Send_Finish_one_flag, n2, n1);
-#endif
-
-
-        if ((n2 == Data_Ctrl_Reg.N_BC - 1) && RLUT_Send_Finish_one_flag) 
-        {
-            Addr_RLUT = Addr_CLC_RLUT + 8 * n2;
-            //[zaf]06171503
-            n2++;
-        //    fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d  num1 n2==========  n2 %d n1 %d\r\n", phase_en_count, clk, n2, n1);
 #if debug_en
-            if (dump_inner_en)
-            {
-                fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d RLUT_Send_Finish111  n1 %d n2 %d\r\n", phase_en_count, clk, n1, n2);
-            }
+    if (dump_inner_en)
+    {
+        fprintf(pcluster->printf_fd, "[zaf]phase_en_count: %d,clk:%d RI_out_H0_WM %d Router_data_fifoQ.size() %d stop_rd_head_addr_flag_close %d stop_rd_head_addr_flag %d\r\n", phase_en_count, clk, RI_out_H0_WM, Router_data_fifoQ.size(), j3,stop_rd_head_addr_flag_close, stop_rd_head_addr_flag);
+    }
 #endif
+
+
+    /* ----------------------------rlut表的更新----------------------------------------------------－*/
+    // RI_out_H0_WM_tmp = (RI_out_H0_WM == 0) ? 8 : RI_out_H0_WM;
+    if ((Router_data_fifoQ.size() < RI_out_H0_WM) && (!stop_rd_head_addr_flag_close))
+    {
+        this_status = 1;
+        stop_rd_head_addr_flag = 1;
+        //cout<<" phase_en_count "<<phase_en_count<<" coreid "<<pcluster->AddrXY<<"RI_out_H0_WM "<<RI_out_H0_WM<<" Router_data_fifoQ.size() "<< Router_data_fifoQ.size()<<" i3 "<<i3<<endl;
+    }
+    else
+    {
+        this_status = 0;
+        stop_rd_head_addr_flag = 0;
+    }
+/*
+    if(stop_rd_head_addr_flag&&(RLUT_Send_Finish))
+    {
+        RLUT_Send_Finish_flag = 1; 
+    }
+
+    if(RLUT_Send_Finish_flag&&(Data_Ctrl_Reg.N_BC > 1))
+    {
+        if(stop_rd_head_addr_flag_dly&&(!stop_rd_head_addr_flag))
+        {
+            RLUT_Send_Finish = 1;
         }
         else
         {
+            RLUT_Send_Finish = 0;
+        }
+    }
+*/
+
 #if debug_en
-            if (dump_inner_en)
-            {
-                fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d RLUT_Send_Finish222  n2 %d n1 %d\r\n", phase_en_count, clk, n2, n1);
-            }
+    if (dump_inner_en)
+    {
+        fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d RI_out_H0_WM %d,Router_data_fifoQ.size %d stop_rd_head_addr_flag %d core_addr_OUT:0x%x mem_addr_des:0x%x this_status %d\r\n", phase_en_count, clk, RI_out_H0_WM, Router_data_fifoQ.size(), stop_rd_head_addr_flag, RC.RI.core_addr_OUT, mem_addr_des, this_status/* RI_out_H0.Mem_Addr*/);
+    }
+
 #endif
-            if (Data_Ctrl_Reg.N_BC > 1)
+
+    RC_busy = 0;
+    
+    if ((!Rt_Wen0) && (1 == Ph_en_Send_Flag))
+    {
+#if debug_en
+        if (dump_inner_en)
+        {
+            fprintf(pcluster->printf_fd, "[zafff]phase_en_count: %d,clk:%d rlutflush  n2 %d n1 %d n2_dly %d i3 %d j3 %d k3 %d  Rt_Wen0 %d b_interupt %d stop_rd_head_addr_flag_close %d stop_rd_head_addr_flag %d send_start_in_receive %d\r\n", phase_en_count, clk, n2,n1, n2_dly,i3,j3,k3,Rt_Wen0, b_interupt , stop_rd_head_addr_flag_close, stop_rd_head_addr_flag, send_start_in_receive);
+        }
+#endif
+        if (Data_Ctrl_Reg.N_BC > 1)
+        {
+            if ((i3 == 0) && (j3 == 0) && (k3 == 0)&&(!send_start_in_receive))//n2 != n2_dly)
+            //if ((i3 == 0) && (j3 == 0) && (k3 == 0))//n2 != n2_dly)
             {
-                if (n1 == 0)
+
+                if ((!b_interupt || Rt_Wen0) && (!stop_rd_head_addr_flag))
                 {
-                    if (!b_interupt || Rt_Wen0)
-                    {
 #if debug_en
-                        fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d num2 n2==========  n2 %d n1 %d Rt_Wen0 %d b_interrupt %d \r\n", \
-                            phase_en_count, clk, n2, n1, Rt_Wen0, b_interupt);
-#endif
-                        Addr_RLUT = Addr_CLC_RLUT + 8 * n2;
-                        n2++;
-                        if ((n2 >= Data_Ctrl_Reg.N_BC))
-                        {
-                             Data_Send_Finish = 1;
-                            // RLUT_Send_Finish_one_flag = 1;
-                            // n2 = 0;
-                        }
-
-
-                    }
-                    else
+                    if (dump_inner_en)
                     {
-                        Addr_RLUT = Addr_CLC_RLUT + 8 * (n2 - 1);
+                        fprintf(pcluster->printf_fd, "[zaf1]phase_en_count: %d,clk:%d num2  n2 %d n1 %d Rt_Wen0 %d b_interrupt %d \r\n", \
+                                phase_en_count, clk, n2, n1, Rt_Wen0, b_interupt);
                     }
+#endif
+                    Addr_RLUT = Addr_CLC_RLUT + 8 * n2;
                 }
                 else
                 {
-                    Addr_RLUT = Addr_CLC_RLUT + 8 * n2;
+#if debug_en
+                    if (dump_inner_en)
+                    {
+                        fprintf(pcluster->printf_fd, "[zaf2]phase_en_count: %d,clk:%d num2  n2 %d n1 %d Rt_Wen0 %d b_interrupt %d \r\n", \
+                                phase_en_count, clk, n2, n1, Rt_Wen0, b_interupt);
+                    }
+#endif
+                   Addr_RLUT = Addr_CLC_RLUT + 8 * (n2 - 1);
+                   // Addr_RLUT = Addr_CLC_RLUT + 8 * (n2);
+
                 }
+            }
+            else
+            {
+                Addr_RLUT = Addr_CLC_RLUT + 8 * n2;
             }
         }
     }
-
     if (!RI_out_H0.C_dest) //串行多播将去lut中读取包头
     {
         RC.RLUT_Addr = RI_out_H0.C_dest;
@@ -1199,55 +1282,47 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
 #if debug_en
     if (dump_inner_en)
     {
-        fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d RC.RLUT_Addr %x,Ren_Mem %d Ren_CLC %d CLC_Ren %d RI_in_A0 %x C_Mode_Merge %d MC_Mode %d Ph_en_RC_Flag_delay %d CLC_Wen_rt %d RC.Rt_Ready %d N_BC %d Rt_Wen0 %d n2 %d n1 %d\r\n",
-                phase_en_count, clk, RC.RLUT_Addr, RC.Ren_Mem, RC.Ren_CLC, CLC_Ren, RI_in_A0, Data_Ctrl_Reg.C_Mode_Merge, Data_Ctrl_Reg.MC_Mode, Ph_en_RC_Flag_delay, CLC_Wen_rt, RC.Rt_Ready, Data_Ctrl_Reg.N_BC, Rt_Wen0, n2, n1);
+        fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d RC.RLUT_Addr %x,Ren_Mem %d Ren_CLC %d CLC_Ren %d RI_in_A0 %x C_Mode_Merge %d MC_Mode %d Ph_en_Send_Flag_delay %d CLC_Wen_rt %d RC.Rt_Ready %d N_BC %d Rt_Wen0 %d n2 %d n1 %d\r\n",
+                phase_en_count, clk, RC.RLUT_Addr, RC.Ren_Mem, RC.Ren_CLC, CLC_Ren, RI_in_A0, Data_Ctrl_Reg.C_Mode_Merge, Data_Ctrl_Reg.MC_Mode, Ph_en_Send_Flag_delay, CLC_Wen_rt, RC.Rt_Ready, Data_Ctrl_Reg.N_BC, Rt_Wen0, n2, n1);
     }
 
 #endif
-    //
 
-    RI_out_H0_WM_tmp = (RI_out_H0_WM == 0) ? 8 : RI_out_H0_WM;
-    if ((Router_data_fifoQ.size() < RI_out_H0_WM_tmp) && (!stop_rd_head_addr_flag_close))
-    {
-        stop_rd_head_addr_flag = 1;
-        //cout<<" phase_en_count "<<phase_en_count<<" coreid "<<pcluster->AddrXY<<"RI_out_H0_WM "<<RI_out_H0_WM<<" Router_data_fifoQ.size() "<< Router_data_fifoQ.size()<<" i3 "<<i3<<endl;
-    }
-    else
-    {
-        stop_rd_head_addr_flag = 0;
-    }
 #if debug_en
-    if (dump_inner_en)
-    {
-        fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d RI_out_H0_WM %d,Router_data_fifoQ.size %d stop_rd_head_addr_flag %d core_addr_OUT:0x%x  mem_addr_OUT:0x%x mem_addr_des:0x%x\r\n", phase_en_count, clk, RI_out_H0_WM_tmp, Router_data_fifoQ.size(), stop_rd_head_addr_flag, RC.RI.core_addr_OUT, RC.RI.mem_addr_OUT, RI_out_H0.Mem_Addr);
-    }
-
+        if (dump_inner_en)
+        {
+            fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d CLC_Wen_rtPh_en_Send_Flag_delay %d,RC.Ren_Mem %d RC.Ren_CLC %d Rt_Wen0:%d  stop_rd_head_addr_flag:%d \r\n", phase_en_count, clk, Ph_en_Send_Flag_delay, RC.Ren_Mem, RC.Ren_CLC, Rt_Wen0, stop_rd_head_addr_flag);
+        }
+    
 #endif
 
-    //
     if (0 == RC.Rt_Ready) //如果Router忙
     {
         CLC_Wen_rt = 0;
     }
     else //如果Router不忙，则将数据发送给NoC
     {
-        if ((Ph_en_RC_Flag_delay && (RC.Ren_Mem || RC.Ren_CLC)) && (!Rt_Wen0) && (!stop_rd_head_addr_flag))
+        if ((Ph_en_Send_Flag_delay && (RC.Ren_Mem || RC.Ren_CLC)) && (!Rt_Wen0) && (!stop_rd_head_addr_flag))
         {
             if ((Rt_c_dest_delay) == 0) //不是多播则用要读取的数据和RLUT 中的包头
             {
                 // cout<<" phase_en_count "<<phase_en_count<<" coreid "<<pcluster->AddrXY<<" RI_out_H0.Core_Addr "<<RI_out_H0.Core_Addr<<" Router_data_fifoQ is not empty pre!"<< "RI_out_H0_WM_tmp "<<RI_out_H0_WM_tmp <<" size "<<Router_data_fifoQ.size()<<endl;
-                for (int i = 0; i < RI_out_H0_WM_tmp; i++)
+               
+#if debug_en
+                if(dump_inner_en)
+                {
+                fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d 离开fifo多少数 %d \r\n", phase_en_count, clk, RI_out_H0_WM);
+                }
+#endif
+                for (int i = 0; i < RI_out_H0_WM; i++)
                 {
                     if (!Router_data_fifoQ.empty())
                     {
                         fifo_out_data[i] = Router_data_fifoQ.front().data;
                         Router_data_fifoQ.pop();
-                    //    fprintf(pcluster->printf_fd, "[zaf]phase_en_count:%d,clk:%d size = %d, RI_out_H0_WM_tmp =%d\r\n", phase_en_count, clk, Router_data_fifoQ.size(), RI_out_H0_WM_tmp);
-                        //cout<<" [zaf]phase_en_count "<<phase_en_count<<" coreid "<<pcluster->AddrXY<<" Router_data_fifoQ is not empty !"<< "size "<<Router_data_fifoQ.size()<<endl;
                     }
                     else
                     {
-                        //    cout<<" phase_en_count "<<phase_en_count<<" coreid "<<pcluster->AddrXY<< " erro:Router_data_fifoQ is empty!"<< "RI_out_H0_WM_tmp "<<Router_data_fifoQ.size()<<endl;
                         // exit(1);
                     }
                 }
@@ -1255,8 +1330,8 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
 #if debug_en
                 if (dump_inner_en)
                 {
-                    fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d RC.RLUT_Addr %x,Ren_Mem %d Ren_CLC %d CLC_Ren %d RI_in_A0 %x C_Mode_Merge %d MC_Mode %d Ph_en_RC_Flag_delay %d CLC_Wen_rt %d RC.Rt_Ready %d N_BC %d Rt_Wen0 %d n2 %d n1 %d left_size %d \r\n",
-                            phase_en_count, clk, RC.RLUT_Addr, RC.Ren_Mem, RC.Ren_CLC, CLC_Ren, RI_in_A0, Data_Ctrl_Reg.C_Mode_Merge, Data_Ctrl_Reg.MC_Mode, Ph_en_RC_Flag_delay, CLC_Wen_rt, RC.Rt_Ready, Data_Ctrl_Reg.N_BC, Rt_Wen0, n2, n1, size);
+                    fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d RC.RLUT_Addr %x,Ren_Mem %d Ren_CLC %d CLC_Ren %d RI_in_A0 %x C_Mode_Merge %d MC_Mode %d Ph_en_Send_Flag_delay %d CLC_Wen_rt %d RC.Rt_Ready %d N_BC %d Rt_Wen0 %d n2 %d n1 %d left_size %d \r\n",
+                            phase_en_count, clk, RC.RLUT_Addr, RC.Ren_Mem, RC.Ren_CLC, CLC_Ren, RI_in_A0, Data_Ctrl_Reg.C_Mode_Merge, Data_Ctrl_Reg.MC_Mode, Ph_en_Send_Flag_delay, CLC_Wen_rt, RC.Rt_Ready, Data_Ctrl_Reg.N_BC, Rt_Wen0, n2, n1, size);
                 }
 
 #endif
@@ -1268,29 +1343,19 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
                 RC.RI.RN_OUT6 = fifo_out_data[5];
                 RC.RI.RN_OUT7 = fifo_out_data[6];
                 RC.RI.RN_OUT8 = fifo_out_data[7];
-                /*
-                RC.RI.RN_OUT1 = RI_out_D0.data1;
-                RC.RI.RN_OUT2 = RI_out_D0.data2;
-                RC.RI.RN_OUT3 = RI_out_D0.data3;
-                RC.RI.RN_OUT4 = RI_out_D0.data4;
-                RC.RI.RN_OUT5 = RI_out_D0.data5;
-                RC.RI.RN_OUT6 = RI_out_D0.data6;
-                RC.RI.RN_OUT7 = RI_out_D0.data7;
-                RC.RI.RN_OUT8 = RI_out_D0.data8;
-                */
-                RC.RI.core_addr_OUT = core_addr_reg; //RI_out_H0.Core_Addr;
+                RC.RI.core_addr_OUT = core_addr_reg; 
 #if debug_en
                 if (dump_inner_en)
                 {
-                  //  fprintf(pcluster->printf_fd, "[zaf]phase_en_count: %d,clk:%d , CIF_Wen:%d C_Ready:%d core_addr_OUT:0x%x  mem_addr_OUT:0x%x  c_dest_OUT:0x%x WM_OUT:%d \n",
-                    //        phase_en_count, clk, RC.CIF_Wen, RC.C_Ready, RI_out_H0.Core_Addr, RC.RI.mem_addr_OUT, RC.RI.c_dest_OUT, RC.RI.WM_OUT);
+                    fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d , CIF_Wen:%d C_Ready:%d core_addr_OUT:0x%x  mem_addr_OUT:0x%x  c_dest_OUT:0x%x WM_OUT:%d mem_addr_des 0x%x\n",
+                            phase_en_count, clk, RC.CIF_Wen, RC.C_Ready, RI_out_H0.Core_Addr, RC.RI.mem_addr_OUT, RC.RI.c_dest_OUT, RC.RI.WM_OUT, mem_addr_des);
                 }
 #endif
-                RC.RI.mem_addr_OUT = mem_addr_des; //RI_out_H0.Mem_Addr;
-                                                   //fifo
-                RC.RI.WM_OUT = RI_out_H0_WM;       //pk_data_valid_dly;//RI_out_H0_WM;
+                RC.RI.mem_addr_OUT = mem_addr_des; 
+                RC.RI.WM_OUT = RI_out_H0_WM;       
                 RC.RI.c_dest_OUT = RI_out_H0.C_dest;
                 CLC_Wen_rt = 1;
+                send_start_in_receive = 0;
             }
         }
         else
@@ -1302,13 +1367,13 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
 #if debug_en
     if (dump_inner_en)
     {
-        fprintf(pcluster->printf_fd, "[zaf][out end]phase_en_count: %d,clk:%d , CIF_Wen:%d C_Ready:%d core_addr_OUT:0x%x  mem_addr_OUT:0x%x  c_dest_OUT:0x%x WM_OUT:%d \n",
-                phase_en_count, clk, RC.CIF_Wen, RC.C_Ready, RC.RI.core_addr_OUT, RC.RI.mem_addr_OUT, RC.RI.c_dest_OUT, RC.RI.WM_OUT);
+        fprintf(pcluster->printf_fd, "[out end]phase_en_count: %d,clk:%d , Ph_en_Send_Flag_delay %d Rt_Wen0 %d  CIF_Wen:%d C_Ready:%d core_addr_OUT:0x%x  mem_addr_OUT:0x%x  c_dest_OUT:0x%x WM_OUT:%d \n",
+                phase_en_count, clk, Ph_en_Send_Flag_delay,Rt_Wen0, RC.CIF_Wen, RC.C_Ready, RC.RI.core_addr_OUT, RC.RI.mem_addr_OUT, RC.RI.c_dest_OUT, RC.RI.WM_OUT);
     }
 #endif
 
     //使能CIF_Wen信号，这个信号为RC与NOC节点之间的发送使能信号
-    if ((RC.Ren_Mem || RC.Ren_CLC) && (!Rt_Wen0) && Ph_en_RC_Flag_delay) //&&(!stop_rd_head_addr_flag)&&Ph_en_RC_Flag_delay)
+    if ((RC.Ren_Mem || RC.Ren_CLC) && (!Rt_Wen0) && Ph_en_Send_Flag_delay) //&&(!stop_rd_head_addr_flag)&&Ph_en_Send_Flag_delay)
     {
         if ((Data_Ctrl_Reg.MC_Mode & 0x1) == 1)
         {
@@ -1316,7 +1381,7 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
         }
         else
         {
-            if (RLUT_Send_Finish) //(Data_Send_Finish || RLUT_Send_Finish)
+            if (RLUT_Send_Finish_dly) 
             {
                 RC.CIF_Wen = 0;
             }
@@ -1340,8 +1405,6 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
 #ifdef no_noc
     //cout<<"RC.RLUT_Data"<<RC.RLUT_Data<<"\n"<<endl;
     //数据包需要发往其他chip router
-
-    //	if(((((RC.RI.core_addr_OUT) >> 10) & 0x1) == 1)&&(CLC_Wen_rt == 1)&&(!stop_rd_head_addr_flag))
 
     if (((((core_addr_reg) >> 10) & 0x1) == 1) && (CLC_Wen_rt == 1)) //&&(!stop_rd_head_addr_flag))
     {
@@ -1450,10 +1513,6 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
 
     if ((Rt_c_dest) == 0) //不是串行多播则用要读取的数据和RLUT 中的包头
     {
-        //fprintf(pcluster->printf_fd, "[zaf]phase_en_count: %d,clk:%d , ------------------------------------ \r\n",phase_en_count,clk);
-       // fprintf(pcluster->printf_fd, "[zaf]phase_en_count: %d,clk:%d ,Addr_RLUT 0x%x\r\n", phase_en_count, clk, Addr_RLUT);
-       // fprintf(pcluster->printf_fd, "[zaf]phase_en_count: %d,clk:%d ,------------------------------------\r\n",phase_en_count,clk);
-        
         RC.RLUT_Addr = Addr_RLUT;
     }
     else  //串行多播
@@ -1482,14 +1541,27 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
     RtinmemA_delay = pRtinmemA;
     RI_WM0_delay=RI_WM0;
     Rt_c_dest_delay = Rt_c_dest;
-    Ph_en_RC_Flag_delay = Ph_en_RC_Flag;
+    Ph_en_Send_Flag_delay = Ph_en_Send_Flag;
     CLC_Ren_delay = CLC_Ren;
-    if ((Ph_en_RC_Flag == 1) && (!Rt_Wen0) && (i3 == 0) && (j3 == 0) && (k3 == 0))
+
+#if debug_en
+    if (dump_inner_en)
     {
-        stop_rd_head_addr_flag = stop_rd_head_addr_flag_pre;
+        fprintf(pcluster->printf_fd, "[zaf]phase_en_count: %d,clk:%d , Ph_en_Send_Flag %d b_interupt %d Rt_Wen0:%d i3: %d  j3:%d  k3:%d\n",
+                phase_en_count, clk, Ph_en_Send_Flag, b_interupt, Rt_Wen0,i3,j3, k3
+        );
+    }
+#endif
+
+
+  //   if ((Ph_en_Send_Flag == 1) && (!Rt_Wen0) && (i3 == 0) && (j3 == 0) && (k3 == 0))//&&(n2 >= Data_Ctrl_Reg.N_BC - 1)
+    if (send_start_in_receive && (i3 == 0) && (j3 == 0) && (k3 == 0))//&&(n2 >= Data_Ctrl_Reg.N_BC - 1)
+    {
+       stop_rd_head_addr_flag = stop_rd_head_addr_flag_pre;
     }
 
-    if ((!Rt_Wen0) && (!b_interupt))
+    //上一拍不是中断且当前clk为读操作
+    if (!b_interupt && !Rt_Wen0)
     {
         pk_data_valid_dly2 = pk_data_valid_dly;
         pk_data_valid_dly = pk_data_valid;
@@ -1500,10 +1572,21 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
         stop_rd_head_addr_flag_dly3 = stop_rd_head_addr_flag_dly2;
         stop_rd_head_addr_flag_dly2 = stop_rd_head_addr_flag_dly;
         stop_rd_head_addr_flag_dly = stop_rd_head_addr_flag;
+       
+        Xo_l_tmp_dly =Xo_l_tmp;       
+        Xo_h_tmp_dly =Xo_h_tmp;
+        padding_flag_dly =padding_flag;
+       
+        if(stop_rd_head_addr_flag)
+        {
+            n2_dly=n2;
+        }
     }
+    //上一拍为中断且当前clk为读操作
     if (b_interupt && !Rt_Wen0)
     {
         b_interupt = 0;
+       
         if (stop_rd_head_addr_flag_dly == 1)
         {
             stop_rd_head_addr_flag = 1;
@@ -1517,8 +1600,9 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
 #if debug_en
     if (dump_inner_en)
     {
-        fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d RC.RLUT_Addr %x,Ren_Mem %d Ren_CLC %d CLC_Ren %d RI_in_A0 %x C_Mode_Merge %d MC_Mode %d Ph_en_RC_Flag %d CLC_Wen_rt %d RC.Rt_Ready %d N_BC %d Rt_Wen0 %d\r\n",
-                phase_en_count, clk, RC.RLUT_Addr, RC.Ren_Mem, RC.Ren_CLC, CLC_Ren, RI_in_A0, Data_Ctrl_Reg.C_Mode_Merge, Data_Ctrl_Reg.MC_Mode, Ph_en_RC_Flag_delay, CLC_Wen_rt, RC.Rt_Ready, Data_Ctrl_Reg.N_BC, Rt_Wen0);
+    fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d RLUT_Send_Finish %d\r\n", phase_en_count, clk,RLUT_Send_Finish);
+        fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d RC.RLUT_Addr %x,Ren_Mem %d Ren_CLC %d CLC_Ren %d RI_in_A0 %x C_Mode_Merge %d MC_Mode %d Ph_en_Send_Flag %d CLC_Wen_rt %d RC.Rt_Ready %d N_BC %d Rt_Wen0 %d\r\n",
+                phase_en_count, clk, RC.RLUT_Addr, RC.Ren_Mem, RC.Ren_CLC, CLC_Ren, RI_in_A0, Data_Ctrl_Reg.C_Mode_Merge, Data_Ctrl_Reg.MC_Mode, Ph_en_Send_Flag_delay, CLC_Wen_rt, RC.Rt_Ready, Data_Ctrl_Reg.N_BC, Rt_Wen0);
     }
 
 #endif
@@ -1544,13 +1628,14 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
         memset(&pcluster->clc.REG_RC.Int_st.regval, 0, sizeof(pcluster->clc.REG_RC.Int_st.regval));
         memset(&pcluster->clc.REG_RC.Int_clr.regval, 0, sizeof(pcluster->clc.REG_RC.Int_clr.regval));
     }
-    //发送结束，清除CLC发送使能Ph_en_RC_Flag
-    if (RLUT_Send_Finish) //||Router_data_fifoQ.empty())//(Data_Send_Finish || RLUT_Send_Finish)
+    //发送结束，清除CLC发送使能Ph_en_Send_Flag
+    if (RLUT_Send_Finish_dly) //||Router_data_fifoQ.empty())//(Data_Send_Finish || RLUT_Send_Finish)
     {
         Data_Send_Finish = 0;
         Data_Send_Finish_dly = 0;
-        Ph_en_RC_Flag = 0;
-        Ph_en_RC_Flag_delay = 0;
+        Ph_en_Send_Flag = 0;
+        Ph_en_Send_Flag_delay = 0;
+        send_start_in_receive = 0;
         pcluster->clc.REG_RC.Int_st.regval.Int_send = 1; //发送完成中断信号
 #if debug_en
         if (dump_inner_en)
@@ -1571,14 +1656,13 @@ void CRouter::ClockEvent(int clk, int reset, CCluster *pcluster, CChip *pchip, C
         }
 #endif
         int size = Router_data_fifoQ.size();
-       // fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d size0 ============================ %d\r\n", phase_en_count, clk, size);
         while (!Router_data_fifoQ.empty())
             Router_data_fifoQ.pop();
         size = Router_data_fifoQ.size();
-       // fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d size1 ============================ %d\r\n", phase_en_count, clk, size);
     }
+    RLUT_Send_Finish_dly = RLUT_Send_Finish;
+    
     int size = Router_data_fifoQ.size();
-    //fprintf(pcluster->printf_fd, "phase_en_count: %d,clk:%d size3 ============================ %d\r\n", phase_en_count, clk, size);
 #if debug_en
     if (dump_inner_en)
     {
