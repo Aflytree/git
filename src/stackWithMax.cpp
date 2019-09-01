@@ -36,7 +36,7 @@ class stackWithMax
         void push(int);
         int pop();
         int max();      
-}
+};
 
 void
 stackWithMax::push(int value)
@@ -45,7 +45,7 @@ stackWithMax::push(int value)
     {
         maxStack.push(value);
     }
-    if(maxStack.top <= value)
+    if(maxStack.top() <= value)
     {
         maxStack.push(value);
     }
@@ -69,7 +69,8 @@ stackWithMax::pop()
     }
     return value;
 }
-int max()
+int 
+stackWithMax::max()
 {
     return maxStack.top();
 }

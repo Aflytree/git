@@ -76,7 +76,7 @@ int main(int argc, char *argv[])
     int k = 11;
     int m =10;
     int n =0;
-    
+#if 0
     n=k+m;
     printf(" n =%d\n",n);    
     add(k,m);
@@ -84,6 +84,8 @@ int main(int argc, char *argv[])
     removeNthFromEndTest();
     testComplex();
     mergeTwoListsTest();
+#endif
+    stackAndQueueTest();
     return 0;
 }
 
