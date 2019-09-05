@@ -26,6 +26,13 @@ int add(int p,int q)
 
 
 }
+void testM()
+{
+    int a[]={1,2,3,4,5};
+    int* ptr = (int*)(&a + 1);
+    printf("a : %d, b:%d\n",*(a + 1),*(ptr - 1));
+
+}
 
 int main(int argc, char *argv[])
 {
@@ -34,6 +41,19 @@ int main(int argc, char *argv[])
     short c = 0x56;
     short d = 0x78;
     long long f = 0;
+
+    unsigned char aa = 0xa5;
+   // unsigned char bb = (0x5a) >> 5;
+    unsigned char bb = (~aa) >> 5;
+    
+    printf("~aa= %x\n",~aa);
+    printf("bb= %x\n",bb);
+
+ //   char len_a[10];
+    char len_a[10] = "hello";
+    printf("len = %d\n", strlen(len_a));
+    printf("len = %d\n", sizeof(len_a));
+    testM();
 #if 0
     f = (f | ( (long long)d << 48));
     
