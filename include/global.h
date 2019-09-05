@@ -9,8 +9,6 @@
 *================================================================*/
 #ifndef _VECTORTEST_H
 #define _VECTORTEST_H
-#endif //VECTORTEST_H
-
 
 struct TreeNode {
     char val;
@@ -39,3 +37,9 @@ int isSameTreeTest();
 void binarySearchTest();
 void removeNthFromEndTest();
 void mergeTwoListsTest();
+int stackAndQueueTest();
+
+#endif //VECTORTEST_H
+
+
+
