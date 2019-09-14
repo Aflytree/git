@@ -85,7 +85,9 @@ int main(int argc, char *argv[])
     testComplex();
     mergeTwoListsTest();
 #endif
-    stackAndQueueTest();
+    testComplex();
+    //testHalf();
+    //stackAndQueueTest();
     return 0;
 }
 
