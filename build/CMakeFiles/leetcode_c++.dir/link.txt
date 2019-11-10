@@ -1,1 +1,0 @@
-/usr/bin/clang++      CMakeFiles/leetcode_c++.dir/src/substringTest.cpp.o CMakeFiles/leetcode_c++.dir/src/main.cpp.o  -o leetcode_c++ -rdynamic 

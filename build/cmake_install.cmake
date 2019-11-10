@@ -1,4 +1,4 @@
-# Install script for directory: /home/lynxi/work/test/c++/leetcode_c++
+# Install script for directory: /home/afly/work/cplus_pratice/leet_code_c-
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/lynxi/work/test/c++/leetcode_c++/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/afly/work/cplus_pratice/leet_code_c-/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

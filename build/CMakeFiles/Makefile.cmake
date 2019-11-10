@@ -11,6 +11,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.5.1/CMakeCCompiler.cmake"
   "CMakeFiles/3.5.1/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.5.1/CMakeSystem.cmake"
+  "../cmake/modules/Findlibdb_cxx.cmake"
   "/usr/share/cmake-3.5/Modules/CMakeCInformation.cmake"
   "/usr/share/cmake-3.5/Modules/CMakeCXXInformation.cmake"
   "/usr/share/cmake-3.5/Modules/CMakeCommonLanguageInclude.cmake"
@@ -18,12 +19,9 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/share/cmake-3.5/Modules/CMakeLanguageInformation.cmake"
   "/usr/share/cmake-3.5/Modules/CMakeSystemSpecificInformation.cmake"
   "/usr/share/cmake-3.5/Modules/CMakeSystemSpecificInitialize.cmake"
-  "/usr/share/cmake-3.5/Modules/Compiler/Clang-C.cmake"
-  "/usr/share/cmake-3.5/Modules/Compiler/Clang-CXX.cmake"
-  "/usr/share/cmake-3.5/Modules/Compiler/Clang.cmake"
+  "/usr/share/cmake-3.5/Modules/Compiler/GNU-C.cmake"
+  "/usr/share/cmake-3.5/Modules/Compiler/GNU-CXX.cmake"
   "/usr/share/cmake-3.5/Modules/Compiler/GNU.cmake"
-  "/usr/share/cmake-3.5/Modules/Platform/Linux-Clang-C.cmake"
-  "/usr/share/cmake-3.5/Modules/Platform/Linux-Clang-CXX.cmake"
   "/usr/share/cmake-3.5/Modules/Platform/Linux-GNU-C.cmake"
   "/usr/share/cmake-3.5/Modules/Platform/Linux-GNU-CXX.cmake"
   "/usr/share/cmake-3.5/Modules/Platform/Linux-GNU.cmake"
@@ -44,5 +42,5 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/leetcode_c++.dir/DependInfo.cmake"
+  "CMakeFiles/leetcode_c-.dir/DependInfo.cmake"
   )

@@ -1,0 +1,654 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+A	tensorExpr.py	/^A=tvm.placeholder((n,), name='A')$/;"	v
+ARCHITECTURE_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	396;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	399;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	402;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	406;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	408;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	410;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	414;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	417;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	420;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	425;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	428;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	431;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	435;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	391;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	394;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	397;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	401;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	403;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	405;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	409;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	412;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	415;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	420;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	423;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	426;"	d	file:
+ARCHITECTURE_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	430;"	d	file:
+B	tensorExpr.py	/^B=tvm.placeholder((n,), name='B')$/;"	v
+BIAS	include/half/umHalf.h	/^	enum { BIAS = MAX_EXPONENT_VALUE\/2 };$/;"	e	enum:HalfFloat::__anon4
+BITS_EXPONENT	include/half/umHalf.h	/^	enum { BITS_EXPONENT = 5 };$/;"	e	enum:HalfFloat::__anon2
+BITS_MANTISSA	include/half/umHalf.h	/^	enum { BITS_MANTISSA = 10 };$/;"	e	enum:HalfFloat::__anon1
+C	tensorExpr.py	/^C = tvm.compute(A.shape, lambda i: A[i]+B[i], name="C")$/;"	v
+CMAKE_BINARY_DIR	build/Makefile	/^CMAKE_BINARY_DIR = \/home\/afly\/work\/cplus_pratice\/leet_code_c-\/build$/;"	m
+CMAKE_COMMAND	build/Makefile	/^CMAKE_COMMAND = \/usr\/bin\/cmake$/;"	m
+CMAKE_SOURCE_DIR	build/Makefile	/^CMAKE_SOURCE_DIR = \/home\/afly\/work\/cplus_pratice\/leet_code_c-$/;"	m
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	103;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	110;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	117;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	124;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	132;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	137;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	144;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	147;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	14;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	150;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	153;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	168;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	182;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	192;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	210;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	219;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	222;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	237;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	244;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	262;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	265;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	268;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	37;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	45;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	51;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	57;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	66;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	75;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	89;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	96;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	101;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	108;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	115;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	122;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	129;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	137;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	13;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	142;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	149;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	152;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	155;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	170;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	184;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	194;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	19;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	212;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	221;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	224;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	239;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	257;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	260;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	263;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	42;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	50;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	56;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	62;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	71;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	80;"	d	file:
+COMPILER_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	94;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	105;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	112;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	119;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	125;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	133;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	139;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	157;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	172;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	183;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	194;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	19;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	213;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	225;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	230;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	239;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	247;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	252;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	38;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	46;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	53;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	59;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	68;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	78;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	83;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	91;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	98;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	103;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	110;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	117;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	124;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	130;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	138;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	144;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	159;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	15;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	174;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	185;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	196;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	215;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	227;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	232;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	242;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	247;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	24;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	43;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	51;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	58;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	64;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	73;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	83;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	88;"	d	file:
+COMPILER_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	96;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	106;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	113;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	120;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	126;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	134;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	140;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	158;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	173;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	185;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	195;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	20;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	214;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	226;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	231;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	240;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	248;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	253;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	39;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	47;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	54;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	60;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	69;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	79;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	84;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	92;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	99;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	104;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	111;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	118;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	125;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	131;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	139;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	145;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	160;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	16;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	175;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	187;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	197;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	216;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	228;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	233;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	243;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	248;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	25;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	44;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	52;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	59;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	65;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	74;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	84;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	89;"	d	file:
+COMPILER_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	97;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	100;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	107;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	114;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	121;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	128;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	141;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	159;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	174;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	188;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	199;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	202;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	215;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	227;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	22;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	232;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	241;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	249;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	24;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	254;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	41;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	48;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	62;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	71;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	80;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	85;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	93;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	105;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	112;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	119;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	126;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	133;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	146;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	161;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	176;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	190;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	201;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	204;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	217;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	229;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	234;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	244;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	249;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	27;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	29;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	46;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	53;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	67;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	76;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	85;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	90;"	d	file:
+COMPILER_VERSION_PATCH	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	98;"	d	file:
+COMPILER_VERSION_TWEAK	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	165;"	d	file:
+COMPILER_VERSION_TWEAK	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	206;"	d	file:
+COMPILER_VERSION_TWEAK	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	28;"	d	file:
+COMPILER_VERSION_TWEAK	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	167;"	d	file:
+COMPILER_VERSION_TWEAK	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	208;"	d	file:
+COMPILER_VERSION_TWEAK	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	33;"	d	file:
+CreateBiTree	src/isSameTree.cpp	/^    void CreateBiTree(TreeNode* &T)$/;"	f	class:Solution
+DEC	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	439;"	d	file:
+DEC	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	434;"	d	file:
+Double	include/half/umHalf.h	/^		double Double;$/;"	m	union:HalfFloat::IEEEDouble
+EQUALS	build/Makefile	/^EQUALS = =$/;"	m
+Exp	include/half/umHalf.h	/^			uint16_t Exp  : 5;		\/\/ exponent$/;"	m	struct:HalfFloat::__anon9::__anon10
+Exp	include/half/umHalf.h	/^			uint32_t Exp  : 8;$/;"	m	struct:HalfFloat::IEEESingle::__anon11
+Exp	include/half/umHalf.h	/^			uint64_t Exp  : 11;$/;"	m	struct:HalfFloat::IEEEDouble::__anon12
+Float	include/half/umHalf.h	/^		float Float;$/;"	m	union:HalfFloat::IEEESingle
+Frac	include/half/umHalf.h	/^			uint16_t Frac : 10;	\/\/ mantissa$/;"	m	struct:HalfFloat::__anon9::__anon10
+Frac	include/half/umHalf.h	/^			uint32_t Frac : 23;$/;"	m	struct:HalfFloat::IEEESingle::__anon11
+Frac	include/half/umHalf.h	/^			uint64_t Frac : 52;$/;"	m	struct:HalfFloat::IEEEDouble::__anon12
+HEX	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	450;"	d	file:
+HEX	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	445;"	d	file:
+HalfFloat	include/half/umHalf.h	/^	inline HalfFloat() {}$/;"	f	class:HalfFloat
+HalfFloat	include/half/umHalf.h	/^	inline HalfFloat(const HalfFloat& other)$/;"	f	class:HalfFloat
+HalfFloat	include/half/umHalf.h	/^class HalfFloat$/;"	c
+ID_VOID_MAIN	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	6;"	d	file:
+IEEE	include/half/umHalf.h	/^		} IEEE;$/;"	m	union:HalfFloat::IEEEDouble	typeref:struct:HalfFloat::IEEEDouble::__anon12
+IEEE	include/half/umHalf.h	/^		} IEEE;$/;"	m	union:HalfFloat::IEEESingle	typeref:struct:HalfFloat::IEEESingle::__anon11
+IEEE	include/half/umHalf.h	/^		} IEEE;$/;"	m	union:HalfFloat::__anon9	typeref:struct:HalfFloat::__anon9::__anon10
+IEEEDouble	include/half/umHalf.h	/^	union IEEEDouble$/;"	u	class:HalfFloat
+IEEEDouble_ExponentBias	include/half/umHalf.h	/^	static const uint64_t IEEEDouble_ExponentBias = IEEEDouble_MaxExpontent \/ 2;$/;"	m	class:HalfFloat
+IEEEDouble_MaxExpontent	include/half/umHalf.h	/^	static const uint64_t IEEEDouble_MaxExpontent = 0x7FF;$/;"	m	class:HalfFloat
+IEEESingle	include/half/umHalf.h	/^	union IEEESingle$/;"	u	class:HalfFloat
+INT16_C	include/half/stdint.h	206;"	d
+INT16_MAX	include/half/stdint.h	110;"	d
+INT16_MIN	include/half/stdint.h	109;"	d
+INT32_C	include/half/stdint.h	207;"	d
+INT32_MAX	include/half/stdint.h	112;"	d
+INT32_MIN	include/half/stdint.h	111;"	d
+INT64_C	include/half/stdint.h	208;"	d
+INT64_MAX	include/half/stdint.h	114;"	d
+INT64_MIN	include/half/stdint.h	113;"	d
+INT8_C	include/half/stdint.h	205;"	d
+INT8_MAX	include/half/stdint.h	108;"	d
+INT8_MIN	include/half/stdint.h	107;"	d
+INTMAX_C	include/half/stdint.h	216;"	d
+INTMAX_MAX	include/half/stdint.h	161;"	d
+INTMAX_MIN	include/half/stdint.h	160;"	d
+INTPTR_MAX	include/half/stdint.h	151;"	d
+INTPTR_MAX	include/half/stdint.h	155;"	d
+INTPTR_MIN	include/half/stdint.h	150;"	d
+INTPTR_MIN	include/half/stdint.h	154;"	d
+INT_FAST16_MAX	include/half/stdint.h	138;"	d
+INT_FAST16_MIN	include/half/stdint.h	137;"	d
+INT_FAST32_MAX	include/half/stdint.h	140;"	d
+INT_FAST32_MIN	include/half/stdint.h	139;"	d
+INT_FAST64_MAX	include/half/stdint.h	142;"	d
+INT_FAST64_MIN	include/half/stdint.h	141;"	d
+INT_FAST8_MAX	include/half/stdint.h	136;"	d
+INT_FAST8_MIN	include/half/stdint.h	135;"	d
+INT_LEAST16_MAX	include/half/stdint.h	124;"	d
+INT_LEAST16_MIN	include/half/stdint.h	123;"	d
+INT_LEAST32_MAX	include/half/stdint.h	126;"	d
+INT_LEAST32_MIN	include/half/stdint.h	125;"	d
+INT_LEAST64_MAX	include/half/stdint.h	128;"	d
+INT_LEAST64_MIN	include/half/stdint.h	127;"	d
+INT_LEAST8_MAX	include/half/stdint.h	122;"	d
+INT_LEAST8_MIN	include/half/stdint.h	121;"	d
+ListNode	include/global.h	/^    ListNode(int x) : val(x), next(NULL) {}$/;"	f	struct:ListNode
+ListNode	include/global.h	/^struct ListNode {$/;"	s
+MAX_EXPONENT	include/half/umHalf.h	/^	enum { MAX_EXPONENT = BIAS };$/;"	e	enum:HalfFloat::__anon5
+MAX_EXPONENT10	include/half/umHalf.h	/^	enum { MAX_EXPONENT10 = 9 };$/;"	e	enum:HalfFloat::__anon7
+MAX_EXPONENT_VALUE	include/half/umHalf.h	/^	enum { MAX_EXPONENT_VALUE = 31 };$/;"	e	enum:HalfFloat::__anon3
+MAX_INT	src/binarySearch.cpp	7;"	d	file:
+MAX_INT	src/myStrToInt.cpp	28;"	d	file:
+MAX_INT	src/reverse.cpp	6;"	d	file:
+MIN_EXPONENT	include/half/umHalf.h	/^	enum { MIN_EXPONENT = -BIAS };$/;"	e	enum:HalfFloat::__anon6
+MIN_EXPONENT10	include/half/umHalf.h	/^	enum { MIN_EXPONENT10 = -9 };$/;"	e	enum:HalfFloat::__anon8
+MIN_INT	src/binarySearch.cpp	8;"	d	file:
+MIN_INT	src/myStrToInt.cpp	29;"	d	file:
+MIN_INT	src/reverse.cpp	7;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	293;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	296;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	299;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	302;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	305;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	308;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	311;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	314;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	317;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	320;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	323;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	326;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	329;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	332;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	335;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	338;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	341;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	344;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	347;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	350;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	353;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	356;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	359;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	362;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	365;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	369;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	372;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	375;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	378;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	381;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	385;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	288;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	291;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	294;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	297;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	300;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	303;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	306;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	309;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	312;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	315;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	318;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	321;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	324;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	327;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	330;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	333;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	336;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	339;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	342;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	345;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	348;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	351;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	354;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	357;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	360;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	364;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	367;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	370;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	373;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	376;"	d	file:
+PLATFORM_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	380;"	d	file:
+PROGRAM_EXIT	src/debug.cpp	/^void PROGRAM_EXIT(int reason, const char *fmt, ...)$/;"	f
+PTRDIFF_MAX	include/half/stdint.h	168;"	d
+PTRDIFF_MAX	include/half/stdint.h	171;"	d
+PTRDIFF_MIN	include/half/stdint.h	167;"	d
+PTRDIFF_MIN	include/half/stdint.h	170;"	d
+RM	build/Makefile	/^RM = \/usr\/bin\/cmake -E remove -f$/;"	m
+SHELL	build/Makefile	/^SHELL = \/bin\/sh$/;"	m
+SIG_ATOMIC_MAX	include/half/stdint.h	175;"	d
+SIG_ATOMIC_MIN	include/half/stdint.h	174;"	d
+SIMULATE_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	155;"	d	file:
+SIMULATE_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	16;"	d	file:
+SIMULATE_ID	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	170;"	d	file:
+SIMULATE_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	157;"	d	file:
+SIMULATE_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	172;"	d	file:
+SIMULATE_ID	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	21;"	d	file:
+SIMULATE_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	162;"	d	file:
+SIMULATE_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	177;"	d	file:
+SIMULATE_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	32;"	d	file:
+SIMULATE_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	164;"	d	file:
+SIMULATE_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	179;"	d	file:
+SIMULATE_VERSION_MAJOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	37;"	d	file:
+SIMULATE_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	163;"	d	file:
+SIMULATE_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	178;"	d	file:
+SIMULATE_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	33;"	d	file:
+SIMULATE_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	165;"	d	file:
+SIMULATE_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	180;"	d	file:
+SIMULATE_VERSION_MINOR	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	38;"	d	file:
+SIZE_MAX	include/half/stdint.h	179;"	d
+SIZE_MAX	include/half/stdint.h	181;"	d
+STRINGIFY	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	289;"	d	file:
+STRINGIFY	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	284;"	d	file:
+STRINGIFY_HELPER	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	288;"	d	file:
+STRINGIFY_HELPER	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	283;"	d	file:
+SUFFIXES	build/Makefile	/^SUFFIXES =$/;"	m
+Sign	include/half/umHalf.h	/^			uint16_t Sign : 1;		\/\/ sign$/;"	m	struct:HalfFloat::__anon9::__anon10
+Sign	include/half/umHalf.h	/^			uint32_t Sign : 1;$/;"	m	struct:HalfFloat::IEEESingle::__anon11
+Sign	include/half/umHalf.h	/^			uint64_t Sign : 1;$/;"	m	struct:HalfFloat::IEEEDouble::__anon12
+Solution	src/binarySearch.cpp	/^class Solution {$/;"	c	file:
+Solution	src/deleteDuplicates.cpp	/^class Solution$/;"	c	file:
+Solution	src/isSameTree.cpp	/^class Solution {$/;"	c	file:
+Solution	src/partitionList.cpp	/^class Solution$/;"	c	file:
+Solution	src/removeNthFromEnd.cpp	/^class Solution$/;"	c	file:
+Solution	src/reverse.cpp	/^class Solution {$/;"	c	file:
+TEST	src/binarySearch.cpp	5;"	d	file:
+TEST	src/deleteDuplicates.cpp	5;"	d	file:
+TEST	src/isSameTree.cpp	7;"	d	file:
+TEST	src/removeNthFromEnd.cpp	5;"	d	file:
+TEST	src/reverse.cpp	4;"	d	file:
+TreeNode	include/global.h	/^    TreeNode(int x) : val(x), left(NULL), right(NULL) {}$/;"	f	struct:TreeNode
+TreeNode	include/global.h	/^struct TreeNode {$/;"	s
+UINT16_C	include/half/stdint.h	211;"	d
+UINT16_MAX	include/half/stdint.h	116;"	d
+UINT32_C	include/half/stdint.h	212;"	d
+UINT32_MAX	include/half/stdint.h	117;"	d
+UINT64_C	include/half/stdint.h	213;"	d
+UINT64_MAX	include/half/stdint.h	118;"	d
+UINT8_C	include/half/stdint.h	210;"	d
+UINT8_MAX	include/half/stdint.h	115;"	d
+UINTMAX_C	include/half/stdint.h	217;"	d
+UINTMAX_MAX	include/half/stdint.h	162;"	d
+UINTPTR_MAX	include/half/stdint.h	152;"	d
+UINTPTR_MAX	include/half/stdint.h	156;"	d
+UINT_FAST16_MAX	include/half/stdint.h	144;"	d
+UINT_FAST32_MAX	include/half/stdint.h	145;"	d
+UINT_FAST64_MAX	include/half/stdint.h	146;"	d
+UINT_FAST8_MAX	include/half/stdint.h	143;"	d
+UINT_LEAST16_MAX	include/half/stdint.h	130;"	d
+UINT_LEAST32_MAX	include/half/stdint.h	131;"	d
+UINT_LEAST64_MAX	include/half/stdint.h	132;"	d
+UINT_LEAST8_MAX	include/half/stdint.h	129;"	d
+UM_HALF_H_INCLUDED	include/half/umHalf.h	42;"	d
+VALIDATE	src/HalfPrecisionFloatTest.cpp	10;"	d	file:
+WCHAR_MAX	include/half/stdint.h	190;"	d
+WCHAR_MIN	include/half/stdint.h	187;"	d
+WINT_MAX	include/half/stdint.h	194;"	d
+WINT_MIN	include/half/stdint.h	193;"	d
+_MSC_STDINT_H_	include/half/stdint.h	37;"	d
+_VECTORTEST_H	include/global.h	11;"	d
+__COMPLEX__	include/complex.h	2;"	d
+__MY_STRING__	include/myString.h	2;"	d
+__doap1	src/comlex.cpp	/^__doap1(complex<T>* ths, const complex<T>& r)$/;"	f
+a	tensorExpr.py	/^a = tvm.nd.array(np.random.uniform(size=n).astype(A.dtype), ctx)$/;"	v
+add	build/testAf.py	/^def add(a,b):  $/;"	f
+add	src/main.cpp	/^int add(int p,int q)$/;"	f
+b	tensorExpr.py	/^b = tvm.nd.array(np.random.uniform(size=n).astype(B.dtype), ctx)$/;"	v
+binarySearch	src/binarySearch.cpp	/^    int binarySearch(int* input, int input_size, int target) {$/;"	f	class:Solution
+binarySearchTest	src/binarySearch.cpp	/^void binarySearchTest()$/;"	f
+bits	include/half/umHalf.h	/^		uint16_t bits;			\/\/ All bits$/;"	m	union:HalfFloat::__anon9
+buffer	src/va_start.cpp	/^char buffer[80];$/;"	v
+c	tensorExpr.py	/^c = tvm.nd.array(np.zeros(n, dtype=C.dtype), ctx)$/;"	v
+compile_proj	build/testAf.py	/^def compile_proj():$/;"	f
+complex	include/complex.h	/^    complex(T r = 0, T i =0)$/;"	f	class:complex
+complex	include/complex.h	/^class complex$/;"	c
+ctx	tensorExpr.py	/^ctx = tvm.context(tgt, 0)$/;"	v
+deleteDuplicates	src/deleteDuplicates.cpp	/^    ListNode* deleteDuplicates(ListNode* head)$/;"	f	class:Solution
+denorm_min	include/half/umHalf.h	/^    static HalfFloat denorm_min ()$/;"	f	class:std::numeric_limits
+dequeue	src/queueWithStack.cpp	/^queueWithStack::dequeue()$/;"	f	class:queueWithStack
+dev_module	tensorExpr.py	/^    dev_module = fadd.imported_modules[0]$/;"	v
+digits	include/half/umHalf.h	/^    static const int digits = 10;   \/\/ conservative assumption$/;"	m	class:std::numeric_limits
+digits10	include/half/umHalf.h	/^    static const int digits10 = 2;  \/\/ conservative assumption$/;"	m	class:std::numeric_limits
+enqueue	src/queueWithStack.cpp	/^queueWithStack::enqueue(int value)$/;"	f	class:queueWithStack
+epsilon	include/half/umHalf.h	/^    static HalfFloat epsilon ()$/;"	f	class:std::numeric_limits
+fadd	tensorExpr.py	/^fadd = tvm.build(s, [A, B, C], tgt, target_host=tgt_host, name="myadd")$/;"	v
+features	build/CMakeFiles/feature_tests.c	/^  const char features[] = {"\\n"$/;"	v
+features	build/CMakeFiles/feature_tests.cxx	/^  const char features[] = {"\\n"$/;"	v
+findLongestDiffChar	src/substringTest.cpp	/^int findLongestDiffChar(string s)$/;"	f
+findMedianSortedArrays	src/findMedianSortedArrays.cpp	/^int findMedianSortedArrays(int m[], int n[])$/;"	f
+findMedianSortedArraysTest	src/findMedianSortedArrays.cpp	/^int findMedianSortedArraysTest()$/;"	f
+findMedianSortedArraysVector	src/findMedianSortedArrays.cpp	/^int findMedianSortedArraysVector(vector<int>&m, vector<int>&n)$/;"	f
+float16	include/half/umHalf.h	/^	typedef HalfFloat float16;$/;"	t
+foo	build/testAf.py	/^def foo(a):  $/;"	f
+ge_c_str	include/myString.h	/^    char* ge_c_str() const {return m_data;}$/;"	f	class:myString
+half	include/half/umHalf.h	/^	typedef HalfFloat half;$/;"	t
+has_denorm	include/half/umHalf.h	/^    static const bool has_denorm			= denorm_present;$/;"	m	class:std::numeric_limits
+has_infinity	include/half/umHalf.h	/^    static const bool has_infinity			= true;$/;"	m	class:std::numeric_limits
+has_quiet_NaN	include/half/umHalf.h	/^    static const bool has_quiet_NaN			= true;$/;"	m	class:std::numeric_limits
+has_signaling_NaN	include/half/umHalf.h	/^    static const bool has_signaling_NaN		= true;$/;"	m	class:std::numeric_limits
+im	include/complex.h	/^    T re, im;$/;"	m	class:complex
+imag	include/complex.h	/^    T imag() const {return im;}$/;"	f	class:complex
+infinity	include/half/umHalf.h	/^    static HalfFloat infinity ()$/;"	f	class:std::numeric_limits
+info_arch	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	/^char const* info_arch = "INFO" ":" "arch[" ARCHITECTURE_ID "]";$/;"	v
+info_arch	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const* info_arch = "INFO" ":" "arch[" ARCHITECTURE_ID "]";$/;"	v
+info_compiler	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	/^char const* info_compiler = "INFO" ":" "compiler[" COMPILER_ID "]";$/;"	v
+info_compiler	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const* info_compiler = "INFO" ":" "compiler[" COMPILER_ID "]";$/;"	v
+info_cray	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	/^char const *info_cray = "INFO" ":" "compiler_wrapper[CrayPrgEnv]";$/;"	v
+info_cray	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const *info_cray = "INFO" ":" "compiler_wrapper[CrayPrgEnv]";$/;"	v
+info_language_dialect_default	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	/^const char* info_language_dialect_default = "INFO" ":" "dialect_default["$/;"	v
+info_language_dialect_default	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^const char* info_language_dialect_default = "INFO" ":" "dialect_default["$/;"	v
+info_platform	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	/^char const* info_platform = "INFO" ":" "platform[" PLATFORM_ID "]";$/;"	v
+info_platform	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const* info_platform = "INFO" ":" "platform[" PLATFORM_ID "]";$/;"	v
+info_simulate	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	/^char const* info_simulate = "INFO" ":" "simulate[" SIMULATE_ID "]";$/;"	v
+info_simulate	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const* info_simulate = "INFO" ":" "simulate[" SIMULATE_ID "]";$/;"	v
+info_simulate_version	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	/^char const info_simulate_version[] = {$/;"	v
+info_simulate_version	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const info_simulate_version[] = {$/;"	v
+info_version	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	/^char const info_version[] = {$/;"	v
+info_version	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const info_version[] = {$/;"	v
+inputStack	src/queueWithStack.cpp	/^        stack<int> inputStack;$/;"	m	class:queueWithStack	file:
+insertNodeToList	src/removeNthFromEnd.cpp	/^void insertNodeToList(ListNode **head, int value)$/;"	f
+int16_t	include/half/stdint.h	/^typedef __int16           int16_t;$/;"	t
+int32_t	include/half/stdint.h	/^typedef __int32           int32_t;$/;"	t
+int64_t	include/half/stdint.h	/^typedef __int64           int64_t;$/;"	t
+int8_t	include/half/stdint.h	/^typedef __int8            int8_t;$/;"	t
+int_fast16_t	include/half/stdint.h	/^typedef int16_t   int_fast16_t;$/;"	t
+int_fast32_t	include/half/stdint.h	/^typedef int32_t   int_fast32_t;$/;"	t
+int_fast64_t	include/half/stdint.h	/^typedef int64_t   int_fast64_t;$/;"	t
+int_fast8_t	include/half/stdint.h	/^typedef int8_t    int_fast8_t;$/;"	t
+int_least16_t	include/half/stdint.h	/^typedef int16_t   int_least16_t;$/;"	t
+int_least32_t	include/half/stdint.h	/^typedef int32_t   int_least32_t;$/;"	t
+int_least64_t	include/half/stdint.h	/^typedef int64_t   int_least64_t;$/;"	t
+int_least8_t	include/half/stdint.h	/^typedef int8_t    int_least8_t;$/;"	t
+intmax_t	include/half/stdint.h	/^typedef int64_t   intmax_t;$/;"	t
+intptr_t	include/half/stdint.h	/^   typedef __int64           intptr_t;$/;"	t
+intptr_t	include/half/stdint.h	/^   typedef int               intptr_t;$/;"	t
+isLeftParentheses	src/validateParenthesis.cpp	/^bool isLeftParentheses(char input)$/;"	f
+isMatchParentheses	src/validateParenthesis.cpp	/^bool isMatchParentheses(char left, char right)$/;"	f
+isSameTree	src/isSameTree.cpp	/^    int isSameTree(TreeNode* p, TreeNode* q)$/;"	f	class:Solution
+isSameTreeTest	src/isSameTree.cpp	/^int isSameTreeTest()$/;"	f
+isValidParenthesisTest	src/validateParenthesis.cpp	/^int isValidParenthesisTest()$/;"	f
+is_bounded	include/half/umHalf.h	/^    static const bool is_bounded	= true;$/;"	m	class:std::numeric_limits
+is_exact	include/half/umHalf.h	/^    static const bool is_exact		= false;$/;"	m	class:std::numeric_limits
+is_iec559	include/half/umHalf.h	/^    static const bool is_iec559				= false;$/;"	m	class:std::numeric_limits
+is_integer	include/half/umHalf.h	/^    static const bool is_integer	= true;$/;"	m	class:std::numeric_limits
+is_modulo	include/half/umHalf.h	/^    static const bool is_modulo		= false;$/;"	m	class:std::numeric_limits
+is_signed	include/half/umHalf.h	/^	static const bool is_signed		= true;$/;"	m	class:std::numeric_limits
+is_specialized	include/half/umHalf.h	/^    static const bool is_specialized = true;$/;"	m	class:std::numeric_limits
+left	include/global.h	/^    TreeNode *left;$/;"	m	struct:TreeNode
+log_file	build/testAf.py	/^log_file = open("message.log", "w")$/;"	v
+m_data	include/myString.h	/^    char* m_data;$/;"	m	class:myString
+main	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	/^int main(int argc, char* argv[])$/;"	f
+main	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	/^void main() {}$/;"	f
+main	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^int main(int argc, char* argv[])$/;"	f
+main	build/CMakeFiles/feature_tests.c	/^int main(int argc, char** argv) { (void)argv; return features[argc]; }$/;"	f
+main	build/CMakeFiles/feature_tests.cxx	/^int main(int argc, char** argv) { (void)argv; return features[argc]; }$/;"	f
+main	src/main.cpp	/^int main(int argc, char *argv[])$/;"	f
+max	include/half/umHalf.h	/^    static HalfFloat max ()$/;"	f	class:std::numeric_limits
+max	include/half/umHalf.h	54;"	d
+max	src/stackWithMax.cpp	/^stackWithMax::max()$/;"	f	class:stackWithMax
+maxStack	src/stackWithMax.cpp	/^        stack<int> maxStack;$/;"	m	class:stackWithMax	file:
+max_exponent	include/half/umHalf.h	/^    static const int max_exponent   = HalfFloat::MAX_EXPONENT;$/;"	m	class:std::numeric_limits
+max_exponent10	include/half/umHalf.h	/^    static const int max_exponent10 = HalfFloat::MAX_EXPONENT10;$/;"	m	class:std::numeric_limits
+mergeTwoLists	src/removeNthFromEnd.cpp	/^    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2)$/;"	f	class:Solution
+mergeTwoListsTest	src/removeNthFromEnd.cpp	/^void mergeTwoListsTest()$/;"	f
+min	include/half/umHalf.h	/^    static HalfFloat min ()$/;"	f	class:std::numeric_limits
+min	include/half/umHalf.h	53;"	d
+min_exponent	include/half/umHalf.h	/^    static const int min_exponent   = HalfFloat::MIN_EXPONENT;$/;"	m	class:std::numeric_limits
+min_exponent10	include/half/umHalf.h	/^    static const int min_exponent10 = HalfFloat::MIN_EXPONENT10;$/;"	m	class:std::numeric_limits
+multiply	build/testAf.py	/^def multiply(a,b):$/;"	f
+myStrToInt	src/myStrToInt.cpp	/^int myStrToInt(string s)$/;"	f
+myStrToIntTest	src/myStrToInt.cpp	/^int myStrToIntTest()$/;"	f
+myString	include/myString.h	/^class myString$/;"	c
+n	tensorExpr.py	/^n = 2$/;"	v
+n	tensorExpr.py	/^n=tvm.var("n")$/;"	v
+next	include/global.h	/^    ListNode *next;$/;"	m	struct:ListNode
+numeric_limits	include/half/umHalf.h	/^class numeric_limits<HalfFloat> {$/;"	c	namespace:std
+operator *	src/comlex.cpp	/^complex<T> operator*(const complex <T> & A, const complex<T> & B)$/;"	f
+operator +	src/comlex.cpp	/^operator + (const complex<T>& x, const complex<T> & y)$/;"	f
+operator +	src/comlex.cpp	/^operator + (const complex<T>& x, double y)$/;"	f
+operator +	src/comlex.cpp	/^operator + (double x, const complex<T>& y)$/;"	f
+operator +=	src/comlex.cpp	/^complex<T>::operator += (const complex<T>& r)$/;"	f	class:complex
+operator <<	src/comlex.cpp	/^operator << (ostream& os, const complex<T>& x)$/;"	f
+outputStack	src/queueWithStack.cpp	/^        stack<int> outputStack;$/;"	m	class:queueWithStack	file:
+partitionList	src/partitionList.cpp	/^    ListNode* partitionList(ListNode* head, int x)$/;"	f	class:Solution
+pop	src/stackWithMax.cpp	/^stackWithMax::pop()$/;"	f	class:stackWithMax
+preOrder	src/isSameTree.cpp	/^    void preOrder(TreeNode *temp)$/;"	f	class:Solution
+push	src/stackWithMax.cpp	/^stackWithMax::push(int value)$/;"	f	class:stackWithMax
+qnxnto	build/CMakeFiles/3.5.1/CompilerIdC/CMakeCCompilerId.c	/^char const* qnxnto = "INFO" ":" "qnxnto[]";$/;"	v
+qnxnto	build/CMakeFiles/3.5.1/CompilerIdCXX/CMakeCXXCompilerId.cpp	/^char const* qnxnto = "INFO" ":" "qnxnto[]";$/;"	v
+queueWithStack	src/queueWithStack.cpp	/^class queueWithStack$/;"	c	file:
+queueWithStackTest	src/queueWithStack.cpp	/^int queueWithStackTest()$/;"	f
+quiet_NaN	include/half/umHalf.h	/^    static HalfFloat quiet_NaN ()$/;"	f	class:std::numeric_limits
+radix	include/half/umHalf.h	/^    static const int radix = 2;$/;"	m	class:std::numeric_limits
+re	include/complex.h	/^    T re, im;$/;"	m	class:complex
+real	include/complex.h	/^    T real() const {return re;\/*return  this->re*\/} $/;"	f	class:complex
+removeNthFromEnd	src/removeNthFromEnd.cpp	/^    ListNode* removeNthFromEnd(ListNode* head, int n)$/;"	f	class:Solution
+removeNthFromEndTest	src/removeNthFromEnd.cpp	/^void removeNthFromEndTest()$/;"	f
+reverse	src/reverse.cpp	/^    int reverse(int x) {$/;"	f	class:Solution
+reverseTest	src/reverse.cpp	/^int reverseTest()$/;"	f
+right	include/global.h	/^    TreeNode *right;$/;"	m	struct:TreeNode
+round_error	include/half/umHalf.h	/^    static HalfFloat round_error ()$/;"	f	class:std::numeric_limits
+round_style	include/half/umHalf.h	/^    static const float_round_style round_style = round_to_nearest;$/;"	m	class:std::numeric_limits
+s	tensorExpr.py	/^s = tvm.create_schedule(C.op)$/;"	v
+show	include/complex.h	/^    T show() const {$/;"	f	class:complex
+signaling_NaN	include/half/umHalf.h	/^    static HalfFloat signaling_NaN ()$/;"	f	class:std::numeric_limits
+stackAndQueueTest	src/stackAndQueue.cpp	/^int stackAndQueueTest()$/;"	f
+stackWithMax	src/stackWithMax.cpp	/^class stackWithMax$/;"	c	file:
+stackWithMaxTest	src/stackWithMax.cpp	/^int stackWithMaxTest()$/;"	f
+std	include/half/umHalf.h	/^namespace std {$/;"	n
+stream	src/main.cpp	/^FILE*stream;$/;"	v
+sub	src/main.cpp	/^int sub(int sub_a,int sub_b){$/;"	f
+substringTest	src/substringTest.cpp	/^int substringTest()$/;"	f
+sum	src/va_start.cpp	/^int sum(int num_args, ...)$/;"	f
+testComplex	src/comlex.cpp	/^void testComplex()$/;"	f
+testHalf	src/HalfPrecisionFloatTest.cpp	/^int testHalf()$/;"	f
+testSum	src/va_start.cpp	/^int testSum(void)$/;"	f
+tgt	tensorExpr.py	/^tgt="cuda"$/;"	v
+tgt_host	tensorExpr.py	/^tgt_host="llvm"$/;"	v
+tinyness_before	include/half/umHalf.h	/^    static const bool tinyness_before		= false;$/;"	m	class:std::numeric_limits
+traps	include/half/umHalf.h	/^    static const bool traps			= false;$/;"	m	class:std::numeric_limits
+uint16_t	include/half/stdint.h	/^typedef unsigned __int16  uint16_t;$/;"	t
+uint32_t	include/half/stdint.h	/^typedef unsigned __int32  uint32_t;$/;"	t
+uint64_t	include/half/stdint.h	/^typedef unsigned __int64  uint64_t;$/;"	t
+uint8_t	include/half/stdint.h	/^typedef unsigned __int8   uint8_t;$/;"	t
+uint_fast16_t	include/half/stdint.h	/^typedef uint16_t  uint_fast16_t;$/;"	t
+uint_fast32_t	include/half/stdint.h	/^typedef uint32_t  uint_fast32_t;$/;"	t
+uint_fast64_t	include/half/stdint.h	/^typedef uint64_t  uint_fast64_t;$/;"	t
+uint_fast8_t	include/half/stdint.h	/^typedef uint8_t   uint_fast8_t;$/;"	t
+uint_least16_t	include/half/stdint.h	/^typedef uint16_t  uint_least16_t;$/;"	t
+uint_least32_t	include/half/stdint.h	/^typedef uint32_t  uint_least32_t;$/;"	t
+uint_least64_t	include/half/stdint.h	/^typedef uint64_t  uint_least64_t;$/;"	t
+uint_least8_t	include/half/stdint.h	/^typedef uint8_t   uint_least8_t;$/;"	t
+uintmax_t	include/half/stdint.h	/^typedef uint64_t  uintmax_t;$/;"	t
+uintptr_t	include/half/stdint.h	/^   typedef unsigned __int64  uintptr_t;$/;"	t
+uintptr_t	include/half/stdint.h	/^   typedef unsigned int      uintptr_t;$/;"	t
+val	include/global.h	/^    char val;$/;"	m	struct:TreeNode
+val	include/global.h	/^    int val;$/;"	m	struct:ListNode
+validateParenthesis	src/validateParenthesis.cpp	/^bool validateParenthesis(string input)$/;"	f
+valueStack	src/stackWithMax.cpp	/^        stack<int> valueStack;$/;"	m	class:stackWithMax	file:
+vspfunc	src/va_start.cpp	/^int vspfunc(char *format, ...)$/;"	f

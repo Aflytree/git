@@ -1,9 +1,11 @@
 #include <stdio.h>
+#include <stdarg.h>
 
 void PROGRAM_EXIT(int reason, const char *fmt, ...)
 {
     char tmp_buf[1024] ={0};
     va_list args;
+    
     va_start(args, fmt);
     vsprintf(tmp_buf, fmt, args);
 

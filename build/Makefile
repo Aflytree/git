@@ -48,24 +48,13 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/lynxi/work/test/c++/leetcode_c++
+CMAKE_SOURCE_DIR = /home/afly/work/cplus_pratice/leet_code_c-
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/lynxi/work/test/c++/leetcode_c++/build
+CMAKE_BINARY_DIR = /home/afly/work/cplus_pratice/leet_code_c-/build
 
 #=============================================================================
 # Targets provided globally by CMake.
-
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
 
 # Special rule for the target rebuild_cache
 rebuild_cache:
@@ -78,11 +67,22 @@ rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
 
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
+
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/lynxi/work/test/c++/leetcode_c++/build/CMakeFiles /home/lynxi/work/test/c++/leetcode_c++/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/afly/work/cplus_pratice/leet_code_c-/build/CMakeFiles /home/afly/work/cplus_pratice/leet_code_c-/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/lynxi/work/test/c++/leetcode_c++/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/afly/work/cplus_pratice/leet_code_c-/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -111,17 +111,206 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named leetcode_c++
+# Target rules for targets named leetcode_c-
 
 # Build rule for target.
-leetcode_c++: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 leetcode_c++
-.PHONY : leetcode_c++
+leetcode_c-: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 leetcode_c-
+.PHONY : leetcode_c-
 
 # fast build rule for target.
-leetcode_c++/fast:
-	$(MAKE) -f CMakeFiles/leetcode_c++.dir/build.make CMakeFiles/leetcode_c++.dir/build
-.PHONY : leetcode_c++/fast
+leetcode_c-/fast:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/build
+.PHONY : leetcode_c-/fast
+
+src/HalfPrecisionFloatTest.o: src/HalfPrecisionFloatTest.cpp.o
+
+.PHONY : src/HalfPrecisionFloatTest.o
+
+# target to build an object file
+src/HalfPrecisionFloatTest.cpp.o:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/HalfPrecisionFloatTest.cpp.o
+.PHONY : src/HalfPrecisionFloatTest.cpp.o
+
+src/HalfPrecisionFloatTest.i: src/HalfPrecisionFloatTest.cpp.i
+
+.PHONY : src/HalfPrecisionFloatTest.i
+
+# target to preprocess a source file
+src/HalfPrecisionFloatTest.cpp.i:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/HalfPrecisionFloatTest.cpp.i
+.PHONY : src/HalfPrecisionFloatTest.cpp.i
+
+src/HalfPrecisionFloatTest.s: src/HalfPrecisionFloatTest.cpp.s
+
+.PHONY : src/HalfPrecisionFloatTest.s
+
+# target to generate assembly for a file
+src/HalfPrecisionFloatTest.cpp.s:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/HalfPrecisionFloatTest.cpp.s
+.PHONY : src/HalfPrecisionFloatTest.cpp.s
+
+src/binarySearch.o: src/binarySearch.cpp.o
+
+.PHONY : src/binarySearch.o
+
+# target to build an object file
+src/binarySearch.cpp.o:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/binarySearch.cpp.o
+.PHONY : src/binarySearch.cpp.o
+
+src/binarySearch.i: src/binarySearch.cpp.i
+
+.PHONY : src/binarySearch.i
+
+# target to preprocess a source file
+src/binarySearch.cpp.i:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/binarySearch.cpp.i
+.PHONY : src/binarySearch.cpp.i
+
+src/binarySearch.s: src/binarySearch.cpp.s
+
+.PHONY : src/binarySearch.s
+
+# target to generate assembly for a file
+src/binarySearch.cpp.s:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/binarySearch.cpp.s
+.PHONY : src/binarySearch.cpp.s
+
+src/comlex.o: src/comlex.cpp.o
+
+.PHONY : src/comlex.o
+
+# target to build an object file
+src/comlex.cpp.o:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/comlex.cpp.o
+.PHONY : src/comlex.cpp.o
+
+src/comlex.i: src/comlex.cpp.i
+
+.PHONY : src/comlex.i
+
+# target to preprocess a source file
+src/comlex.cpp.i:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/comlex.cpp.i
+.PHONY : src/comlex.cpp.i
+
+src/comlex.s: src/comlex.cpp.s
+
+.PHONY : src/comlex.s
+
+# target to generate assembly for a file
+src/comlex.cpp.s:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/comlex.cpp.s
+.PHONY : src/comlex.cpp.s
+
+src/debug.o: src/debug.cpp.o
+
+.PHONY : src/debug.o
+
+# target to build an object file
+src/debug.cpp.o:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/debug.cpp.o
+.PHONY : src/debug.cpp.o
+
+src/debug.i: src/debug.cpp.i
+
+.PHONY : src/debug.i
+
+# target to preprocess a source file
+src/debug.cpp.i:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/debug.cpp.i
+.PHONY : src/debug.cpp.i
+
+src/debug.s: src/debug.cpp.s
+
+.PHONY : src/debug.s
+
+# target to generate assembly for a file
+src/debug.cpp.s:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/debug.cpp.s
+.PHONY : src/debug.cpp.s
+
+src/deleteDuplicates.o: src/deleteDuplicates.cpp.o
+
+.PHONY : src/deleteDuplicates.o
+
+# target to build an object file
+src/deleteDuplicates.cpp.o:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/deleteDuplicates.cpp.o
+.PHONY : src/deleteDuplicates.cpp.o
+
+src/deleteDuplicates.i: src/deleteDuplicates.cpp.i
+
+.PHONY : src/deleteDuplicates.i
+
+# target to preprocess a source file
+src/deleteDuplicates.cpp.i:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/deleteDuplicates.cpp.i
+.PHONY : src/deleteDuplicates.cpp.i
+
+src/deleteDuplicates.s: src/deleteDuplicates.cpp.s
+
+.PHONY : src/deleteDuplicates.s
+
+# target to generate assembly for a file
+src/deleteDuplicates.cpp.s:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/deleteDuplicates.cpp.s
+.PHONY : src/deleteDuplicates.cpp.s
+
+src/findMedianSortedArrays.o: src/findMedianSortedArrays.cpp.o
+
+.PHONY : src/findMedianSortedArrays.o
+
+# target to build an object file
+src/findMedianSortedArrays.cpp.o:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/findMedianSortedArrays.cpp.o
+.PHONY : src/findMedianSortedArrays.cpp.o
+
+src/findMedianSortedArrays.i: src/findMedianSortedArrays.cpp.i
+
+.PHONY : src/findMedianSortedArrays.i
+
+# target to preprocess a source file
+src/findMedianSortedArrays.cpp.i:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/findMedianSortedArrays.cpp.i
+.PHONY : src/findMedianSortedArrays.cpp.i
+
+src/findMedianSortedArrays.s: src/findMedianSortedArrays.cpp.s
+
+.PHONY : src/findMedianSortedArrays.s
+
+# target to generate assembly for a file
+src/findMedianSortedArrays.cpp.s:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/findMedianSortedArrays.cpp.s
+.PHONY : src/findMedianSortedArrays.cpp.s
+
+src/isSameTree.o: src/isSameTree.cpp.o
+
+.PHONY : src/isSameTree.o
+
+# target to build an object file
+src/isSameTree.cpp.o:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/isSameTree.cpp.o
+.PHONY : src/isSameTree.cpp.o
+
+src/isSameTree.i: src/isSameTree.cpp.i
+
+.PHONY : src/isSameTree.i
+
+# target to preprocess a source file
+src/isSameTree.cpp.i:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/isSameTree.cpp.i
+.PHONY : src/isSameTree.cpp.i
+
+src/isSameTree.s: src/isSameTree.cpp.s
+
+.PHONY : src/isSameTree.s
+
+# target to generate assembly for a file
+src/isSameTree.cpp.s:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/isSameTree.cpp.s
+.PHONY : src/isSameTree.cpp.s
 
 src/main.o: src/main.cpp.o
 
@@ -129,7 +318,7 @@ src/main.o: src/main.cpp.o
 
 # target to build an object file
 src/main.cpp.o:
-	$(MAKE) -f CMakeFiles/leetcode_c++.dir/build.make CMakeFiles/leetcode_c++.dir/src/main.cpp.o
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/main.cpp.o
 .PHONY : src/main.cpp.o
 
 src/main.i: src/main.cpp.i
@@ -138,7 +327,7 @@ src/main.i: src/main.cpp.i
 
 # target to preprocess a source file
 src/main.cpp.i:
-	$(MAKE) -f CMakeFiles/leetcode_c++.dir/build.make CMakeFiles/leetcode_c++.dir/src/main.cpp.i
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/main.cpp.i
 .PHONY : src/main.cpp.i
 
 src/main.s: src/main.cpp.s
@@ -147,8 +336,224 @@ src/main.s: src/main.cpp.s
 
 # target to generate assembly for a file
 src/main.cpp.s:
-	$(MAKE) -f CMakeFiles/leetcode_c++.dir/build.make CMakeFiles/leetcode_c++.dir/src/main.cpp.s
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
+
+src/myStrToInt.o: src/myStrToInt.cpp.o
+
+.PHONY : src/myStrToInt.o
+
+# target to build an object file
+src/myStrToInt.cpp.o:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/myStrToInt.cpp.o
+.PHONY : src/myStrToInt.cpp.o
+
+src/myStrToInt.i: src/myStrToInt.cpp.i
+
+.PHONY : src/myStrToInt.i
+
+# target to preprocess a source file
+src/myStrToInt.cpp.i:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/myStrToInt.cpp.i
+.PHONY : src/myStrToInt.cpp.i
+
+src/myStrToInt.s: src/myStrToInt.cpp.s
+
+.PHONY : src/myStrToInt.s
+
+# target to generate assembly for a file
+src/myStrToInt.cpp.s:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/myStrToInt.cpp.s
+.PHONY : src/myStrToInt.cpp.s
+
+src/myString.o: src/myString.cpp.o
+
+.PHONY : src/myString.o
+
+# target to build an object file
+src/myString.cpp.o:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/myString.cpp.o
+.PHONY : src/myString.cpp.o
+
+src/myString.i: src/myString.cpp.i
+
+.PHONY : src/myString.i
+
+# target to preprocess a source file
+src/myString.cpp.i:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/myString.cpp.i
+.PHONY : src/myString.cpp.i
+
+src/myString.s: src/myString.cpp.s
+
+.PHONY : src/myString.s
+
+# target to generate assembly for a file
+src/myString.cpp.s:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/myString.cpp.s
+.PHONY : src/myString.cpp.s
+
+src/partitionList.o: src/partitionList.cpp.o
+
+.PHONY : src/partitionList.o
+
+# target to build an object file
+src/partitionList.cpp.o:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/partitionList.cpp.o
+.PHONY : src/partitionList.cpp.o
+
+src/partitionList.i: src/partitionList.cpp.i
+
+.PHONY : src/partitionList.i
+
+# target to preprocess a source file
+src/partitionList.cpp.i:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/partitionList.cpp.i
+.PHONY : src/partitionList.cpp.i
+
+src/partitionList.s: src/partitionList.cpp.s
+
+.PHONY : src/partitionList.s
+
+# target to generate assembly for a file
+src/partitionList.cpp.s:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/partitionList.cpp.s
+.PHONY : src/partitionList.cpp.s
+
+src/queueWithStack.o: src/queueWithStack.cpp.o
+
+.PHONY : src/queueWithStack.o
+
+# target to build an object file
+src/queueWithStack.cpp.o:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/queueWithStack.cpp.o
+.PHONY : src/queueWithStack.cpp.o
+
+src/queueWithStack.i: src/queueWithStack.cpp.i
+
+.PHONY : src/queueWithStack.i
+
+# target to preprocess a source file
+src/queueWithStack.cpp.i:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/queueWithStack.cpp.i
+.PHONY : src/queueWithStack.cpp.i
+
+src/queueWithStack.s: src/queueWithStack.cpp.s
+
+.PHONY : src/queueWithStack.s
+
+# target to generate assembly for a file
+src/queueWithStack.cpp.s:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/queueWithStack.cpp.s
+.PHONY : src/queueWithStack.cpp.s
+
+src/removeNthFromEnd.o: src/removeNthFromEnd.cpp.o
+
+.PHONY : src/removeNthFromEnd.o
+
+# target to build an object file
+src/removeNthFromEnd.cpp.o:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/removeNthFromEnd.cpp.o
+.PHONY : src/removeNthFromEnd.cpp.o
+
+src/removeNthFromEnd.i: src/removeNthFromEnd.cpp.i
+
+.PHONY : src/removeNthFromEnd.i
+
+# target to preprocess a source file
+src/removeNthFromEnd.cpp.i:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/removeNthFromEnd.cpp.i
+.PHONY : src/removeNthFromEnd.cpp.i
+
+src/removeNthFromEnd.s: src/removeNthFromEnd.cpp.s
+
+.PHONY : src/removeNthFromEnd.s
+
+# target to generate assembly for a file
+src/removeNthFromEnd.cpp.s:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/removeNthFromEnd.cpp.s
+.PHONY : src/removeNthFromEnd.cpp.s
+
+src/reverse.o: src/reverse.cpp.o
+
+.PHONY : src/reverse.o
+
+# target to build an object file
+src/reverse.cpp.o:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/reverse.cpp.o
+.PHONY : src/reverse.cpp.o
+
+src/reverse.i: src/reverse.cpp.i
+
+.PHONY : src/reverse.i
+
+# target to preprocess a source file
+src/reverse.cpp.i:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/reverse.cpp.i
+.PHONY : src/reverse.cpp.i
+
+src/reverse.s: src/reverse.cpp.s
+
+.PHONY : src/reverse.s
+
+# target to generate assembly for a file
+src/reverse.cpp.s:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/reverse.cpp.s
+.PHONY : src/reverse.cpp.s
+
+src/stackAndQueue.o: src/stackAndQueue.cpp.o
+
+.PHONY : src/stackAndQueue.o
+
+# target to build an object file
+src/stackAndQueue.cpp.o:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/stackAndQueue.cpp.o
+.PHONY : src/stackAndQueue.cpp.o
+
+src/stackAndQueue.i: src/stackAndQueue.cpp.i
+
+.PHONY : src/stackAndQueue.i
+
+# target to preprocess a source file
+src/stackAndQueue.cpp.i:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/stackAndQueue.cpp.i
+.PHONY : src/stackAndQueue.cpp.i
+
+src/stackAndQueue.s: src/stackAndQueue.cpp.s
+
+.PHONY : src/stackAndQueue.s
+
+# target to generate assembly for a file
+src/stackAndQueue.cpp.s:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/stackAndQueue.cpp.s
+.PHONY : src/stackAndQueue.cpp.s
+
+src/stackWithMax.o: src/stackWithMax.cpp.o
+
+.PHONY : src/stackWithMax.o
+
+# target to build an object file
+src/stackWithMax.cpp.o:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/stackWithMax.cpp.o
+.PHONY : src/stackWithMax.cpp.o
+
+src/stackWithMax.i: src/stackWithMax.cpp.i
+
+.PHONY : src/stackWithMax.i
+
+# target to preprocess a source file
+src/stackWithMax.cpp.i:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/stackWithMax.cpp.i
+.PHONY : src/stackWithMax.cpp.i
+
+src/stackWithMax.s: src/stackWithMax.cpp.s
+
+.PHONY : src/stackWithMax.s
+
+# target to generate assembly for a file
+src/stackWithMax.cpp.s:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/stackWithMax.cpp.s
+.PHONY : src/stackWithMax.cpp.s
 
 src/substringTest.o: src/substringTest.cpp.o
 
@@ -156,7 +561,7 @@ src/substringTest.o: src/substringTest.cpp.o
 
 # target to build an object file
 src/substringTest.cpp.o:
-	$(MAKE) -f CMakeFiles/leetcode_c++.dir/build.make CMakeFiles/leetcode_c++.dir/src/substringTest.cpp.o
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/substringTest.cpp.o
 .PHONY : src/substringTest.cpp.o
 
 src/substringTest.i: src/substringTest.cpp.i
@@ -165,7 +570,7 @@ src/substringTest.i: src/substringTest.cpp.i
 
 # target to preprocess a source file
 src/substringTest.cpp.i:
-	$(MAKE) -f CMakeFiles/leetcode_c++.dir/build.make CMakeFiles/leetcode_c++.dir/src/substringTest.cpp.i
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/substringTest.cpp.i
 .PHONY : src/substringTest.cpp.i
 
 src/substringTest.s: src/substringTest.cpp.s
@@ -174,8 +579,62 @@ src/substringTest.s: src/substringTest.cpp.s
 
 # target to generate assembly for a file
 src/substringTest.cpp.s:
-	$(MAKE) -f CMakeFiles/leetcode_c++.dir/build.make CMakeFiles/leetcode_c++.dir/src/substringTest.cpp.s
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/substringTest.cpp.s
 .PHONY : src/substringTest.cpp.s
+
+src/va_start.o: src/va_start.cpp.o
+
+.PHONY : src/va_start.o
+
+# target to build an object file
+src/va_start.cpp.o:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/va_start.cpp.o
+.PHONY : src/va_start.cpp.o
+
+src/va_start.i: src/va_start.cpp.i
+
+.PHONY : src/va_start.i
+
+# target to preprocess a source file
+src/va_start.cpp.i:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/va_start.cpp.i
+.PHONY : src/va_start.cpp.i
+
+src/va_start.s: src/va_start.cpp.s
+
+.PHONY : src/va_start.s
+
+# target to generate assembly for a file
+src/va_start.cpp.s:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/va_start.cpp.s
+.PHONY : src/va_start.cpp.s
+
+src/validateParenthesis.o: src/validateParenthesis.cpp.o
+
+.PHONY : src/validateParenthesis.o
+
+# target to build an object file
+src/validateParenthesis.cpp.o:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/validateParenthesis.cpp.o
+.PHONY : src/validateParenthesis.cpp.o
+
+src/validateParenthesis.i: src/validateParenthesis.cpp.i
+
+.PHONY : src/validateParenthesis.i
+
+# target to preprocess a source file
+src/validateParenthesis.cpp.i:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/validateParenthesis.cpp.i
+.PHONY : src/validateParenthesis.cpp.i
+
+src/validateParenthesis.s: src/validateParenthesis.cpp.s
+
+.PHONY : src/validateParenthesis.s
+
+# target to generate assembly for a file
+src/validateParenthesis.cpp.s:
+	$(MAKE) -f CMakeFiles/leetcode_c-.dir/build.make CMakeFiles/leetcode_c-.dir/src/validateParenthesis.cpp.s
+.PHONY : src/validateParenthesis.cpp.s
 
 # Help Target
 help:
@@ -183,15 +642,66 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... leetcode_c++"
+	@echo "... edit_cache"
+	@echo "... leetcode_c-"
+	@echo "... src/HalfPrecisionFloatTest.o"
+	@echo "... src/HalfPrecisionFloatTest.i"
+	@echo "... src/HalfPrecisionFloatTest.s"
+	@echo "... src/binarySearch.o"
+	@echo "... src/binarySearch.i"
+	@echo "... src/binarySearch.s"
+	@echo "... src/comlex.o"
+	@echo "... src/comlex.i"
+	@echo "... src/comlex.s"
+	@echo "... src/debug.o"
+	@echo "... src/debug.i"
+	@echo "... src/debug.s"
+	@echo "... src/deleteDuplicates.o"
+	@echo "... src/deleteDuplicates.i"
+	@echo "... src/deleteDuplicates.s"
+	@echo "... src/findMedianSortedArrays.o"
+	@echo "... src/findMedianSortedArrays.i"
+	@echo "... src/findMedianSortedArrays.s"
+	@echo "... src/isSameTree.o"
+	@echo "... src/isSameTree.i"
+	@echo "... src/isSameTree.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/myStrToInt.o"
+	@echo "... src/myStrToInt.i"
+	@echo "... src/myStrToInt.s"
+	@echo "... src/myString.o"
+	@echo "... src/myString.i"
+	@echo "... src/myString.s"
+	@echo "... src/partitionList.o"
+	@echo "... src/partitionList.i"
+	@echo "... src/partitionList.s"
+	@echo "... src/queueWithStack.o"
+	@echo "... src/queueWithStack.i"
+	@echo "... src/queueWithStack.s"
+	@echo "... src/removeNthFromEnd.o"
+	@echo "... src/removeNthFromEnd.i"
+	@echo "... src/removeNthFromEnd.s"
+	@echo "... src/reverse.o"
+	@echo "... src/reverse.i"
+	@echo "... src/reverse.s"
+	@echo "... src/stackAndQueue.o"
+	@echo "... src/stackAndQueue.i"
+	@echo "... src/stackAndQueue.s"
+	@echo "... src/stackWithMax.o"
+	@echo "... src/stackWithMax.i"
+	@echo "... src/stackWithMax.s"
 	@echo "... src/substringTest.o"
 	@echo "... src/substringTest.i"
 	@echo "... src/substringTest.s"
+	@echo "... src/va_start.o"
+	@echo "... src/va_start.i"
+	@echo "... src/va_start.s"
+	@echo "... src/validateParenthesis.o"
+	@echo "... src/validateParenthesis.i"
+	@echo "... src/validateParenthesis.s"
 .PHONY : help
 
 

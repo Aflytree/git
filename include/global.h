@@ -38,6 +38,7 @@ void binarySearchTest();
 void removeNthFromEndTest();
 void mergeTwoListsTest();
 int stackAndQueueTest();
+int testHalf();
 
 #endif //VECTORTEST_H
 

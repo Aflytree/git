@@ -1,3 +1,3 @@
-/home/lynxi/work/test/c++/leetcode_c++/build/CMakeFiles/edit_cache.dir
-/home/lynxi/work/test/c++/leetcode_c++/build/CMakeFiles/rebuild_cache.dir
-/home/lynxi/work/test/c++/leetcode_c++/build/CMakeFiles/leetcode_c++.dir
+/home/afly/work/cplus_pratice/leet_code_c-/build/CMakeFiles/rebuild_cache.dir
+/home/afly/work/cplus_pratice/leet_code_c-/build/CMakeFiles/edit_cache.dir
+/home/afly/work/cplus_pratice/leet_code_c-/build/CMakeFiles/leetcode_c-.dir
